@@ -1,7 +1,7 @@
 // Navbar Component for Habimint
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
@@ -12,14 +12,36 @@ import { Logo } from '../ui/Logo';
 
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { getItemCount } = useCart();
   const { isAuthenticated } = useAuth();
   const itemCount = getItemCount();
 
+  // Detect scroll to change navbar appearance
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroHeight = typeof window !== 'undefined' ? window.innerHeight : 0;
+      setIsScrolled(window.scrollY > heroHeight - 100);
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+      handleScroll(); // Check initial scroll position
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+
+  // Determine colors based on scroll state
+  const logoTextColor = isScrolled ? '#C8DEC8' : '#FFFFFF';
+  const linkColor = isScrolled ? 'text-habimint-primary-light' : 'text-white';
+  const hoverColor = 'hover:text-white';
+
   return (
     <>
       <motion.nav
-        className="fixed top-0 left-0 right-0 z-50 bg-habimint-primary shadow-md"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled ? 'bg-habimint-primary shadow-md' : 'bg-transparent'
+        }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
@@ -30,18 +52,17 @@ export const Navbar: React.FC = () => {
             <div style={{ transform: 'scale(0.5)', transformOrigin: 'left center' }}>
               <Logo 
                 showTagline={false}
-                textColor="#C8DEC8"
-                taglineColor="#C8DEC8"
+                textColor={logoTextColor}
+                taglineColor={logoTextColor}
               />
             </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            {/* Desktop Navigation */}\n            <div className="hidden md:flex items-center gap-8">
               {NAVIGATION_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-habimint-primary-light hover:text-white transition-colors font-medium relative group"
+                  className={`${linkColor} ${hoverColor} transition-colors font-medium relative group`}
                 >
                   {link.name}
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300" />
@@ -56,7 +77,7 @@ export const Navbar: React.FC = () => {
                 className="p-2 hover:bg-white/10 rounded-full transition-colors"
                 aria-label="Search"
               >
-                <Search className="w-5 h-5 text-habimint-primary-light hover:text-white transition-colors" />
+                <Search className={`w-5 h-5 ${linkColor} ${hoverColor} transition-colors`} />
               </button>
 
               {/* Cart Icon with Badge */}
@@ -64,7 +85,7 @@ export const Navbar: React.FC = () => {
                 href="/cart"
                 className="relative p-2 hover:bg-white/10 rounded-full transition-colors"
               >
-                <ShoppingCart className="w-5 h-5 text-habimint-primary-light hover:text-white transition-colors" />
+                <ShoppingCart className={`w-5 h-5 ${linkColor} ${hoverColor} transition-colors`} />
                 {itemCount > 0 && (
                   <motion.span
                     className="absolute -top-1 -right-1 bg-habimint-accent text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
@@ -82,7 +103,7 @@ export const Navbar: React.FC = () => {
                 href={isAuthenticated ? '/account' : '/login'}
                 className="p-2 hover:bg-white/10 rounded-full transition-colors"
               >
-                <User className="w-5 h-5 text-habimint-primary-light hover:text-white transition-colors" />
+                <User className={`w-5 h-5 ${linkColor} ${hoverColor} transition-colors`} />
               </Link>
 
               {/* Mobile Menu Toggle */}
@@ -92,9 +113,9 @@ export const Navbar: React.FC = () => {
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-6 h-6 text-habimint-primary-light" />
+                  <X className={`w-6 h-6 ${linkColor}`} />
                 ) : (
-                  <Menu className="w-6 h-6 text-habimint-primary-light" />
+                  <Menu className={`w-6 h-6 ${linkColor}`} />
                 )}
               </button>
             </div>

@@ -1,0 +1,28 @@
+<svg viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient background -->
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E2A3A;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#C084C8;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#0A1015;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#grad2)"/>
+  
+  <!-- Abstract geometric pattern -->
+  <g opacity="0.2">
+    <circle cx="500" cy="300" r="300" fill="#C8DEC8" opacity="0.1"/>
+    <circle cx="700" cy="500" r="250" fill="#6DC56D" opacity="0.15"/>
+    <rect x="1200" y="200" width="400" height="600" fill="#C084C8" opacity="0.08" rx="20"/>
+  </g>
+  
+  <!-- Pen illustration -->
+  <g transform="translate(1400, 400)">
+    <rect x="0" y="0" width="60" height="200" fill="#C084C8" opacity="0.4" rx="8"/>
+    <rect x="10" y="10" width="40" height="60" fill="#6DC56D" opacity="0.5" rx="6"/>
+    <polygon points="0,200 60,200 30,250" fill="#9B6BA8" opacity="0.4"/>
+  </g>
+  
+  <!-- Text suggestion -->
+  <text x="960" y="540" font-size="100" font-weight="700" font-family="'Poltawski Nowy', serif" fill="white" text-anchor="middle" opacity="0.25">FROM AHAM TO ANANTA</text>
+</svg>
