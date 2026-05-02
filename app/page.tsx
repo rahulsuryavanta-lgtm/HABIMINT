@@ -15,7 +15,7 @@ export default function HomePage() {
   const heroSlides = [
     {
       id: 1,
-      image: 'https://i.ibb.co/k2sBsDBC/fall-forward-hero.png',
+      image: '/images/fall-forward-hero.jpg',
       label: 'FALL FORWARD — 4 MONTH JOURNAL',
       heading: ['Plan with Intention.', 'Live with Purpose.'],
       subtext: 'The premium journal that transforms your habits, mindset and life.',
@@ -24,7 +24,7 @@ export default function HomePage() {
     },
     {
       id: 2,
-      image: 'https://i.ibb.co/fYrMWZLL/fall-forward-window.jpg',
+      image: '/images/fall-forward-window.jpg',
       label: 'FROM AHAM TO ANANTA',
       heading: ['Fall Forward.', 'Rise Unlimited.'],
       subtext: '316 pages. 4 months. One complete transformation.',
@@ -33,7 +33,7 @@ export default function HomePage() {
     },
     {
       id: 3,
-      image: 'https://i.ibb.co/HLGs1NdW/version2-hero.png',
+      image: '/images/version2-hero.jpg',
       label: 'VERSION 2.0 — 21 DAY GUIDE',
       heading: ['21 Days.', 'Become Unstoppable.'],
       subtext: "Track 6 dimensions of growth daily. It's always you vs you.",
@@ -289,7 +289,7 @@ export default function HomePage() {
             >
               <div className="relative aspect-[4/5] rounded-t-2xl overflow-hidden group">
                 <Image
-                  src="https://i.ibb.co/k2sBsDBC/fall-forward-hero.png"
+                  src="/images/fall-forward-hero.jpg"
                   alt="Fall Forward Journal"
                   fill
                   quality={90}
@@ -342,7 +342,7 @@ export default function HomePage() {
             >
               <div className="relative aspect-[4/5] rounded-t-2xl overflow-hidden group">
                 <Image
-                  src="https://i.ibb.co/HLGs1NdW/version2-hero.png"
+                  src="/images/version2-hero.jpg"
                   alt="Version 2.0 Journal"
                   fill
                   quality={90}
@@ -464,7 +464,7 @@ export default function HomePage() {
               <div className="relative">
                 <div className="w-[260px] aspect-[9/16] border-4 border-gray-800 rounded-3xl overflow-hidden shadow-2xl">
                   <Image
-                    src="https://i.ibb.co/RTV5y0Ts/fall-forward-open.png"
+                    src="/images/fall-forward-open.jpg"
                     alt="Fall Forward Pages"
                     width={260}
                     height={462}
@@ -537,10 +537,10 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {[
-              { image: 'https://i.ibb.co/5XthxHZt/fall-forward-art-1.jpg', title: 'Before the Surface', subtitle: 'Month 1 Artwork' },
-              { image: 'https://i.ibb.co/jPQP3hZq/fall-forward-art-2.jpg', title: 'All That I Am', subtitle: 'Month 3 — By Vignesh' },
-              { image: 'https://i.ibb.co/PsQWDtTs/fall-forward-inside.jpg', title: 'Daily Pages', subtitle: 'Morning + Evening' },
-              { image: 'https://i.ibb.co/RTV5y0Ts/fall-forward-open.png', title: 'Monthly Planning', subtitle: 'Budget + Goals' },
+              { image: '/images/fall-forward-art-1.jpg', title: 'Before the Surface', subtitle: 'Month 1 Artwork' },
+              { image: '/images/fall-forward-art-2.jpg', title: 'All That I Am', subtitle: 'Month 3 — By Vignesh' },
+              { image: '/images/fall-forward-inside.jpg', title: 'Daily Pages', subtitle: 'Morning + Evening' },
+              { image: '/images/fall-forward-open.jpg', title: 'Monthly Planning', subtitle: 'Budget + Goals' },
             ].map((card, index) => (
               <motion.div
                 key={index}
@@ -677,7 +677,7 @@ export default function HomePage() {
             >
               <div className="relative transform -rotate-2 hover:rotate-0 transition-transform duration-500">
                 <Image
-                  src="https://i.ibb.co/qL3mSsYR/fall-forward-banner.png"
+                  src="/images/fall-forward-banner.jpg"
                   alt="Fall Forward Banner"
                   width={500}
                   height={300}

@@ -2,7 +2,6 @@ const nextConfig = {
   output: 'standalone',
   images: {
     unoptimized: true,
-    domains: ['i.ibb.co'],
   },
   experimental: {
     // Remove if not using Server Components
