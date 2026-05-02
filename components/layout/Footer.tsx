@@ -47,8 +47,8 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
-            <div className="w-48 mb-6">
-              <Logo variant="white" showTagline={true} />
+            <div className="mb-6" style={{ transform: 'scale(0.6)', transformOrigin: 'left top' }}>
+              <Logo showTagline={true} />
             </div>
             <p className="text-habimint-primary-light text-sm leading-relaxed">
               Premium Indian wellness and self-growth journals designed to help you transform from self-awareness to limitless potential.

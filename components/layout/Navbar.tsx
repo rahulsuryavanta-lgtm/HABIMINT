@@ -42,11 +42,8 @@ export const Navbar: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <div className="w-48">
-              <Logo 
-                variant={isScrolled ? 'default' : 'default'}
-                showTagline={false}
-              />
+            <div style={{ transform: 'scale(0.5)', transformOrigin: 'left center' }}>
+              <Logo showTagline={false} />
             </div>
 
             {/* Desktop Navigation */}
