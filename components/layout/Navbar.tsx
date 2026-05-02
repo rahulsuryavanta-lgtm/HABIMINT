@@ -3,12 +3,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
 import { useCart } from '@/store/cartStore';
 import { useAuth } from '@/store/authStore';
 import { NAVIGATION_LINKS } from '@/lib/constants';
-import { Logo } from '../ui/Logo';
 
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -48,7 +48,15 @@ export const Navbar: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Logo linkTo="/" showTagline={false} />
+            <Link href="/">
+              <Image 
+                src="/images/habimint-logo.svg" 
+                alt="Habimint" 
+                width={160} 
+                height={55} 
+                priority 
+              />
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">

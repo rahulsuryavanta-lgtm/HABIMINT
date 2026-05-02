@@ -3,11 +3,11 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Instagram, Youtube, Mail } from 'lucide-react';
 import { FOOTER_LINKS, SITE_CONFIG } from '@/lib/constants';
 import { subscribeNewsletter } from '@/lib/api';
-import { Logo } from '../ui/Logo';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 
@@ -47,9 +47,14 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
-            <div className="mb-6">
-              <Logo linkTo="/" showTagline={true} />
-            </div>
+            <Link href="/" className="inline-block mb-6">
+              <Image 
+                src="/images/habimint-logo.svg" 
+                alt="Habimint" 
+                width={140} 
+                height={48} 
+              />
+            </Link>
             <p className="text-habimint-primary-light text-sm leading-relaxed">
               Premium Indian wellness and self-growth journals designed to help you transform from self-awareness to limitless potential.
             </p>
