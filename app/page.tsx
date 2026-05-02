@@ -5,12 +5,15 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Play, Pause, Check, Truck, Star, Package, Lock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Play, Pause, Check, Truck, Star, Package, Lock, Volume2, VolumeX } from 'lucide-react';
 
 export default function HomePage() {
   // Hero slider state
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  
+  // Video mute state
+  const [isMuted, setIsMuted] = useState(false);
 
   const heroSlides = [
     {
@@ -382,6 +385,73 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════ */}
+      {/* SECTION 3.5 — WHY FALL FORWARD */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      <section className="py-[60px] px-4 md:px-0" style={{ backgroundColor: '#F5F2E8' }}>
+        <div className="container mx-auto px-4 md:px-6">
+          {/* Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-10"
+            style={{ marginBottom: '40px' }}
+          >
+            <h2
+              className="font-heading text-[32px] md:text-[40px] leading-tight"
+              style={{ color: '#1A1A1A' }}
+            >
+              Why Fall Forward?
+            </h2>
+            <p
+              className="mt-3 text-sm md:text-base"
+              style={{ color: '#6B7280', fontFamily: 'Poppins, sans-serif' }}
+            >
+              Everything you need for your transformation journey
+            </p>
+          </motion.div>
+
+          {/* Banners */}
+          <div className="flex flex-col items-center">
+            {[
+              { src: '/images/hero-slide-1.jpg', delay: 0 },
+              { src: '/images/hero-slide-2.jpg', delay: 0.2 },
+              { src: '/images/hero-slide-3.jpg', delay: 0.4 },
+            ].map((banner, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.7, delay: banner.delay, ease: 'easeOut' }}
+                whileHover={{ scale: 1.01 }}
+                className="w-full mx-auto cursor-pointer rounded-2xl shadow-lg overflow-hidden transition-transform duration-300"
+                style={{
+                  maxWidth: '1200px',
+                  marginBottom: '24px',
+                  backgroundColor: '#F5F2E8',
+                }}
+                onClick={() => (window.location.href = '/products/fall-forward')}
+              >
+                <Link href="/products/fall-forward" className="block">
+                  <div className="relative w-full" style={{ backgroundColor: '#F5F2E8' }}>
+                    {/* Use native img so full image shows without Next/Image cropping */}
+                    <img
+                      src={banner.src}
+                      alt={`Why Fall Forward banner ${idx + 1}`}
+                      className="w-full h-auto block"
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════ */}
       {/* SECTION 4 — PHILOSOPHY STRIP */}
       {/* ═══════════════════════════════════════════════════════════ */}
       <section className="bg-habimint-primary py-20">
@@ -459,11 +529,16 @@ export default function HomePage() {
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                className="relative"
               >
                 <video
+                  ref={(el) => {
+                    if (el) {
+                      el.muted = isMuted;
+                    }
+                  }}
                   src="/videos/fall-forward-reel.mp4"
                   autoPlay
-                  muted
                   loop
                   playsInline
                   style={{
@@ -487,6 +562,18 @@ export default function HomePage() {
                     e.currentTarget.parentNode?.replaceChild(img, e.currentTarget);
                   }}
                 />
+                {/* Mute/Unmute Button */}
+                <button
+                  onClick={() => setIsMuted(!isMuted)}
+                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm hover:bg-black/80 flex items-center justify-center transition-all z-10"
+                  aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                >
+                  {isMuted ? (
+                    <VolumeX className="w-5 h-5 text-white" />
+                  ) : (
+                    <Volume2 className="w-5 h-5 text-white" />
+                  )}
+                </button>
               </motion.div>
             </motion.div>
           </div>
