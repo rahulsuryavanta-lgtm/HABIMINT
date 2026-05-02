@@ -48,12 +48,12 @@ export const Navbar: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/">
+            <Link href="/" className="flex items-center">
               <Image 
                 src="/images/habimint-logo.svg" 
                 alt="Habimint" 
-                width={160} 
-                height={55} 
+                width={180} 
+                height={60} 
                 priority 
               />
             </Link>

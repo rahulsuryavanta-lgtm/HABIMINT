@@ -47,12 +47,12 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-6">
+            <Link href="/" className="inline-block mb-4">
               <Image 
                 src="/images/habimint-logo.svg" 
                 alt="Habimint" 
-                width={140} 
-                height={48} 
+                width={200} 
+                height={70} 
               />
             </Link>
             <p className="text-habimint-primary-light text-sm leading-relaxed">
