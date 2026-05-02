@@ -4,10 +4,11 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ShoppingCart, User, Menu, X, Pen } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
 import { useCart } from '@/store/cartStore';
 import { useAuth } from '@/store/authStore';
 import { NAVIGATION_LINKS } from '@/lib/constants';
+import { Logo } from '../ui/Logo';
 import { cn } from '@/lib/utils';
 
 export const Navbar: React.FC = () => {
@@ -41,23 +42,12 @@ export const Navbar: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex flex-col items-start">
-              <div className="flex items-center">
-                <span className="text-2xl font-heading font-bold text-habimint-primary">
-                  HAB
-                </span>
-                <Pen className="w-5 h-5 text-habimint-accent mx-1" />
-                <span className="text-2xl font-heading font-bold text-habimint-primary">
-                  MINT
-                </span>
-              </div>
-              <div className="relative">
-                <div className="h-0.5 w-full bg-habimint-accent" />
-                <span className="text-[10px] text-habimint-text-light tracking-widest uppercase mt-1">
-                  From Aham to Ananta
-                </span>
-              </div>
-            </Link>
+            <div className="w-48">
+              <Logo 
+                variant={isScrolled ? 'default' : 'default'}
+                showTagline={false}
+              />
+            </div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">

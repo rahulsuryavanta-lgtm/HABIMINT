@@ -1,0 +1,24 @@
+<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="120" height="120" fill="#2D5A27" rx="20" />
+  
+  <!-- HAB -->
+  <text x="15" y="55" font-size="28" font-weight="900" font-family="'Poppins', sans-serif" fill="#C8DEC8" letter-spacing="1">HAB</text>
+
+  <!-- Pen Icon - Centered -->
+  <g transform="translate(50, 28)">
+    <ellipse cx="10" cy="6" rx="6" ry="3" fill="#6DC56D" />
+    <rect x="4" y="6" width="12" height="5" fill="#6DC56D" rx="2" />
+    <rect x="5" y="11" width="10" height="20" fill="#C084C8" rx="2" />
+    <rect x="14" y="13" width="1.5" height="8" fill="#6DC56D" rx="0.75" />
+    <polygon points="5,31 10,37 15,31" fill="#9B6BA8" />
+    <polygon points="9,37 10,40 11,37" fill="#1A1A1A" />
+    <rect x="6" y="13" width="1.5" height="15" fill="#FFFFFF" opacity="0.3" rx="0.75" />
+  </g>
+
+  <!-- MINT -->
+  <text x="15" y="90" font-size="28" font-weight="900" font-family="'Poppins', sans-serif" fill="#C8DEC8" letter-spacing="1">MINT</text>
+
+  <!-- Brushstroke -->
+  <path d="M 15 95 Q 40 93, 60 94 T 105 95" stroke="#C084C8" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8" />
+</svg>

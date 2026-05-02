@@ -1,0 +1,36 @@
+<svg viewBox="0 0 400 533" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="533" fill="#F5F2E8"/>
+  
+  <!-- Journal Cover -->
+  <rect x="50" y="50" width="300" height="433" fill="#1E2A3A" rx="8"/>
+  
+  <!-- Decorative Grid Pattern -->
+  <line x1="120" y1="100" x2="120" y2="450" stroke="#C084C8" stroke-width="1" opacity="0.3"/>
+  <line x1="200" y1="100" x2="200" y2="450" stroke="#C084C8" stroke-width="1" opacity="0.3"/>
+  <line x1="280" y1="100" x2="280" y2="450" stroke="#C084C8" stroke-width="1" opacity="0.3"/>
+  
+  <line x1="80" y1="150" x2="320" y2="150" stroke="#6DC56D" stroke-width="1" opacity="0.3"/>
+  <line x1="80" y1="250" x2="320" y2="250" stroke="#6DC56D" stroke-width="1" opacity="0.3"/>
+  <line x1="80" y1="350" x2="320" y2="350" stroke="#6DC56D" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Central Focus -->
+  <rect x="120" y="200" width="160" height="100" fill="#C084C8" opacity="0.2" rx="4"/>
+  
+  <!-- Version 2.0 Text -->
+  <text x="200" y="240" font-size="36" font-weight="800" font-family="'Poltawski Nowy', serif" fill="#C8DEC8" text-anchor="middle">VERSION</text>
+  <text x="200" y="280" font-size="48" font-weight="900" font-family="'Poltawski Nowy', serif" fill="#6DC56D" text-anchor="middle">2.0</text>
+  
+  <!-- Subtitle -->
+  <text x="200" y="380" font-size="13" font-weight="400" font-family="'Poppins', sans-serif" fill="#C8DEC8" text-anchor="middle" opacity="0.9">21-Day Habit Transformation</text>
+  
+  <!-- Decorative Accent -->
+  <rect x="100" y="420" width="200" height="3" fill="#C084C8" rx="1.5"/>
+  
+  <!-- Corner Accent -->
+  <circle cx="320" cy="100" r="20" fill="#6DC56D" opacity="0.4"/>
+  
+  <!-- New Badge -->
+  <rect x="280" y="70" width="40" height="20" fill="#6DC56D" rx="10"/>
+  <text x="300" y="84" font-size="10" font-weight="600" font-family="'Poppins', sans-serif" fill="white" text-anchor="middle">NEW</text>
+</svg>

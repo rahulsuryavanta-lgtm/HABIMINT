@@ -1,0 +1,31 @@
+<svg viewBox="0 0 400 533" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="533" fill="#F5F2E8"/>
+  
+  <!-- Journal Cover -->
+  <rect x="50" y="50" width="300" height="433" fill="#2D5A27" rx="8"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="200" cy="150" r="60" fill="#C8DEC8" opacity="0.2"/>
+  <circle cx="200" cy="150" r="40" fill="#C8DEC8" opacity="0.3"/>
+  
+  <!-- Title Area -->
+  <rect x="80" y="250" width="240" height="80" fill="#C8DEC8" opacity="0.15" rx="4"/>
+  
+  <!-- Fall Forward Text -->
+  <text x="200" y="285" font-size="32" font-weight="800" font-family="'Poltawski Nowy', serif" fill="#C8DEC8" text-anchor="middle">FALL</text>
+  <text x="200" y="320" font-size="32" font-weight="800" font-family="'Poltawski Nowy', serif" fill="#C8DEC8" text-anchor="middle">FORWARD</text>
+  
+  <!-- Subtitle -->
+  <text x="200" y="380" font-size="14" font-weight="400" font-family="'Poppins', sans-serif" fill="#C8DEC8" text-anchor="middle" opacity="0.8">90-Day Transformational Journal</text>
+  
+  <!-- Decorative Line -->
+  <path d="M 100 420 L 300 420" stroke="#C084C8" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Bottom Accent -->
+  <circle cx="200" cy="450" r="15" fill="#C084C8" opacity="0.6"/>
+  
+  <!-- Bestseller Badge -->
+  <rect x="280" y="70" width="50" height="20" fill="#C084C8" rx="10"/>
+  <text x="305" y="84" font-size="10" font-weight="600" font-family="'Poppins', sans-serif" fill="white" text-anchor="middle">BEST</text>
+</svg>

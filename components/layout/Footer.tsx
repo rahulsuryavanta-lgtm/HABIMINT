@@ -4,9 +4,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Instagram, Youtube, Mail, Pen } from 'lucide-react';
+import { Instagram, Youtube, Mail } from 'lucide-react';
 import { FOOTER_LINKS, SITE_CONFIG } from '@/lib/constants';
 import { subscribeNewsletter } from '@/lib/api';
+import { Logo } from '../ui/Logo';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 
@@ -46,23 +47,9 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex flex-col items-start mb-6">
-              <div className="flex items-center">
-                <span className="text-2xl font-heading font-bold text-white">
-                  HAB
-                </span>
-                <Pen className="w-5 h-5 text-habimint-accent mx-1" />
-                <span className="text-2xl font-heading font-bold text-white">
-                  MINT
-                </span>
-              </div>
-              <div className="relative">
-                <div className="h-0.5 w-full bg-habimint-accent" />
-                <span className="text-[10px] text-habimint-primary-light tracking-widest uppercase mt-1">
-                  From Aham to Ananta
-                </span>
-              </div>
-            </Link>
+            <div className="w-48 mb-6">
+              <Logo variant="white" showTagline={true} />
+            </div>
             <p className="text-habimint-primary-light text-sm leading-relaxed">
               Premium Indian wellness and self-growth journals designed to help you transform from self-awareness to limitless potential.
             </p>
