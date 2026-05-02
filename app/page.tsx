@@ -188,45 +188,40 @@ export default function HomePage() {
           </AnimatePresence>
         </div>
 
-        {/* Slider Controls */}
-        <div className="absolute bottom-8 left-0 right-0 z-20 px-6">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            {/* Dot Indicators */}
-            <div className="flex gap-3 flex-1 justify-center">
-              {heroSlides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`transition-all duration-300 rounded-full ${
-                    index === currentSlide ? 'w-10 h-3 bg-white' : 'w-3 h-3 bg-white/40 hover:bg-white/60'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
+        {/* Dot Indicators - Centered */}
+        <div className="absolute z-20 flex gap-3" style={{ bottom: '32px', left: '50%', transform: 'translateX(-50%)' }}>
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`transition-all duration-300 rounded-full ${
+                index === currentSlide ? 'w-10 h-3 bg-white' : 'w-3 h-3 bg-white/40 hover:bg-white/60'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
 
-            {/* Arrow + Play/Pause */}
-            <div className="flex gap-3">
-              <button
-                onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
-                className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
-              >
-                <ChevronLeft className="w-6 h-6 text-white" />
-              </button>
-              <button
-                onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
-                className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
-              >
-                <ChevronRight className="w-6 h-6 text-white" />
-              </button>
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
-              >
-                {isPlaying ? <Pause className="w-5 h-5 text-white" /> : <Play className="w-5 h-5 text-white ml-0.5" />}
-              </button>
-            </div>
-          </div>
+        {/* Arrow + Play/Pause - Bottom Right */}
+        <div className="absolute z-20 flex gap-3" style={{ bottom: '32px', right: '24px' }}>
+          <button
+            onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
+            className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
+          >
+            <ChevronLeft className="w-6 h-6 text-white" />
+          </button>
+          <button
+            onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
+            className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
+          >
+            <ChevronRight className="w-6 h-6 text-white" />
+          </button>
+          <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
+          >
+            {isPlaying ? <Pause className="w-5 h-5 text-white" /> : <Play className="w-5 h-5 text-white ml-0.5" />}
+          </button>
         </div>
       </section>
 
