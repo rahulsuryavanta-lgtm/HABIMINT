@@ -20,7 +20,7 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 1,
-    image: '/images/hero-slide-1.jpg',
+    image: 'https://i.ibb.co/SD5jZq82/hero-slide-1.png',
     label: 'FALL FORWARD — 4 MONTH JOURNAL',
     heading: ['Plan with Intention.', 'Live with Purpose.'],
     subtext: 'The journal that transforms your habits, mindset and life.',
@@ -29,7 +29,7 @@ const slides: Slide[] = [
   },
   {
     id: 2,
-    image: '/images/hero-slide-2.jpg',
+    image: 'https://i.ibb.co/MDxj2hNp/hero-slide-2.png',
     label: 'FROM AHAM TO ANANTA',
     heading: ['Fall Forward.', 'Rise Unlimited.'],
     subtext: 'Transform from self-awareness to limitless potential.',
@@ -38,7 +38,7 @@ const slides: Slide[] = [
   },
   {
     id: 3,
-    image: '/images/hero-slide-3.jpg',
+    image: 'https://i.ibb.co/bMsz0T9N/hero-slide-3.png',
     label: 'VERSION 2.0 — 21 DAY GUIDE',
     heading: ['21 Days.', 'Become Unstoppable.'],
     subtext: 'Break old patterns. Build empowering habits.',
