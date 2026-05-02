@@ -3,12 +3,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
 import { useCart } from '@/store/cartStore';
 import { useAuth } from '@/store/authStore';
 import { NAVIGATION_LINKS } from '@/lib/constants';
-import { Logo } from '../ui/Logo';
 
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -32,7 +32,6 @@ export const Navbar: React.FC = () => {
   }, []);
 
   // Determine colors based on scroll state
-  const logoTextColor = isScrolled ? '#C8DEC8' : '#FFFFFF';
   const linkColor = isScrolled ? 'text-habimint-primary-light' : 'text-white';
   const hoverColor = 'hover:text-white';
 
@@ -49,15 +48,21 @@ export const Navbar: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <div style={{ transform: 'scale(0.5)', transformOrigin: 'left center' }}>
-              <Logo 
-                showTagline={false}
-                textColor={logoTextColor}
-                taglineColor={logoTextColor}
-              />
-            </div>
+            <Link href="/">
+              <div className="flex flex-col">
+                <Image
+                  src="/images/habimint-logo.svg"
+                  alt="Habimint - From Aham to Ananta"
+                  width={160}
+                  height={55}
+                  priority
+                  className="object-contain"
+                />
+              </div>
+            </Link>
 
-            {/* Desktop Navigation */}\n            <div className="hidden md:flex items-center gap-8">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
               {NAVIGATION_LINKS.map((link) => (
                 <Link
                   key={link.href}
