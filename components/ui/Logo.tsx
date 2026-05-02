@@ -8,12 +8,16 @@ interface LogoProps {
   className?: string;
   showTagline?: boolean;
   linkTo?: string;
+  textColor?: string; // Custom text color
+  taglineColor?: string; // Custom tagline color
 }
 
 export const Logo: React.FC<LogoProps> = ({ 
   className = '', 
   showTagline = true,
-  linkTo = '/'
+  linkTo = '/',
+  textColor = '#1A3A1A',
+  taglineColor = '#2D5A27'
 }) => {
   const LogoSVG = (
     <div className={`inline-flex flex-col items-center ${className}`}>
@@ -25,7 +29,7 @@ export const Logo: React.FC<LogoProps> = ({
             fontFamily: "'Poppins', sans-serif",
             fontSize: '48px',
             fontWeight: 900,
-            color: '#1A3A1A',
+            color: textColor,
             lineHeight: '48px',
             letterSpacing: '2px'
           }}
@@ -49,7 +53,7 @@ export const Logo: React.FC<LogoProps> = ({
             fontFamily: "'Poppins', sans-serif",
             fontSize: '48px',
             fontWeight: 900,
-            color: '#1A3A1A',
+            color: textColor,
             lineHeight: '48px',
             letterSpacing: '2px'
           }}
@@ -76,7 +80,7 @@ export const Logo: React.FC<LogoProps> = ({
             fontFamily: "'Poppins', sans-serif",
             fontSize: '10px',
             letterSpacing: '0.3em',
-            color: '#2D5A27',
+            color: taglineColor,
             textTransform: 'uppercase',
             marginTop: '4px',
             fontWeight: 500

@@ -41,14 +41,18 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-habimint-dark text-white pt-16 pb-8">
+    <footer className="bg-habimint-primary text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
             <div className="mb-6" style={{ transform: 'scale(0.6)', transformOrigin: 'left top' }}>
-              <Logo showTagline={true} />
+              <Logo 
+                showTagline={true}
+                textColor="#C8DEC8"
+                taglineColor="#C8DEC8"
+              />
             </div>
             <p className="text-habimint-primary-light text-sm leading-relaxed">
               Premium Indian wellness and self-growth journals designed to help you transform from self-awareness to limitless potential.
@@ -57,7 +61,7 @@ export const Footer: React.FC = () => {
 
           {/* Shop Links */}
           <div>
-            <h3 className="font-heading font-semibold text-lg mb-4">Shop</h3>
+            <h3 className="font-heading font-semibold text-lg mb-4 text-white">Shop</h3>
             <ul className="space-y-3">
               {FOOTER_LINKS.shop.map((link) => (
                 <li key={link.href}>
@@ -74,7 +78,7 @@ export const Footer: React.FC = () => {
 
           {/* Company Links */}
           <div>
-            <h3 className="font-heading font-semibold text-lg mb-4">Company</h3>
+            <h3 className="font-heading font-semibold text-lg mb-4 text-white">Company</h3>
             <ul className="space-y-3">
               {FOOTER_LINKS.company.map((link) => (
                 <li key={link.href}>
@@ -91,7 +95,7 @@ export const Footer: React.FC = () => {
 
           {/* Support Links */}
           <div>
-            <h3 className="font-heading font-semibold text-lg mb-4">Support</h3>
+            <h3 className="font-heading font-semibold text-lg mb-4 text-white">Support</h3>
             <ul className="space-y-3">
               {FOOTER_LINKS.support.map((link) => (
                 <li key={link.href}>
@@ -108,7 +112,7 @@ export const Footer: React.FC = () => {
 
           {/* Newsletter */}
           <div>
-            <h3 className="font-heading font-semibold text-lg mb-4">Join the Journey</h3>
+            <h3 className="font-heading font-semibold text-lg mb-4 text-white">Join the Journey</h3>
             <p className="text-habimint-primary-light text-sm mb-4">
               Subscribe to get wellness tips and exclusive offers.
             </p>
@@ -125,7 +129,7 @@ export const Footer: React.FC = () => {
                 type="submit"
                 variant="secondary"
                 size="sm"
-                className="w-full border-white text-white hover:bg-white hover:text-habimint-dark"
+                className="w-full border-white text-white hover:bg-white hover:text-habimint-primary"
                 isLoading={isSubscribing}
                 disabled={isSubscribing}
               >
