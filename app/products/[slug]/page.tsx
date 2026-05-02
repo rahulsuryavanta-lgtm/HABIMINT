@@ -525,12 +525,18 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {product.insidePages.map((page, index) => (
                       <div key={index} className="group">
-                        <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-3 bg-gray-100">
+                        <div 
+                          className="relative rounded-2xl mb-3 bg-habimint-bg" 
+                          style={{ 
+                            minHeight: '280px',
+                            aspectRatio: '4/3',
+                          }}
+                        >
                           <Image
                             src={page.image}
                             alt={page.title}
                             fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            className="object-contain group-hover:scale-105 transition-transform duration-500 p-4"
                           />
                         </div>
                         <h4 className="font-heading text-lg font-semibold text-habimint-text mb-1">

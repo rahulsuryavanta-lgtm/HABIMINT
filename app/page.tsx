@@ -456,18 +456,38 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
               className="flex justify-center"
             >
-              <div className="relative">
-                <div className="w-[260px] aspect-[9/16] border-4 border-gray-800 rounded-3xl overflow-hidden shadow-2xl">
-                  <Image
-                    src="/images/fall-forward-open.jpg"
-                    alt="Fall Forward Pages"
-                    width={260}
-                    height={462}
-                    quality={90}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-              </div>
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <video
+                  src="/videos/fall-forward-reel.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{
+                    width: '260px',
+                    aspectRatio: '9/16',
+                    objectFit: 'cover',
+                    borderRadius: '24px',
+                    border: '4px solid #1a1a1a',
+                    boxShadow: '0 25px 50px rgba(0,0,0,0.3)',
+                  }}
+                  onError={(e) => {
+                    // Fallback to image if video fails to load
+                    const img = document.createElement('img');
+                    img.src = '/images/fall-forward-open.jpg';
+                    img.style.width = '260px';
+                    img.style.aspectRatio = '9/16';
+                    img.style.objectFit = 'cover';
+                    img.style.borderRadius = '24px';
+                    img.style.border = '4px solid #1a1a1a';
+                    img.style.boxShadow = '0 25px 50px rgba(0,0,0,0.3)';
+                    e.currentTarget.parentNode?.replaceChild(img, e.currentTarget);
+                  }}
+                />
+              </motion.div>
             </motion.div>
           </div>
         </div>

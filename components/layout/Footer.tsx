@@ -46,8 +46,8 @@ export const Footer: React.FC = () => {
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Logo and Description */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-4">
+          <div className="lg:col-span-1 flex flex-col items-start">
+            <Link href="/" className="inline-block mb-4" style={{ marginTop: 0, alignSelf: 'flex-start' }}>
               <Image 
                 src="/images/habimint-logo.svg" 
                 alt="Habimint" 
