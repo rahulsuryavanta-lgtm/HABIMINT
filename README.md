@@ -1,193 +1,311 @@
-# Habimint - Premium Wellness Journals
+# Habimint — Premium Wellness & Self-Growth Journals
 
-> From Aham to Ananta
+**From Aham to Ananta** — A complete Next.js 14 e-commerce platform for premium guided journals designed for personal transformation.
 
-A Next.js 14 frontend project for Habimint, a premium Indian wellness and self-growth journal brand.
+## 🎯 Project Overview
 
-## Project Structure
+Habimint is a full-stack Next.js application featuring:
+- **12 complete pages** with premium UI/UX
+- **E-commerce functionality** (cart, checkout, orders)
+- **User authentication** (email/password + Google OAuth ready)
+- **B2B/Corporate gifting** section
+- **Blog & FAQ** for content marketing
+- **Responsive design** optimized for all devices
+- **SEO-optimized** with meta tags and structured data
+
+## 🛠 Tech Stack
+
+### Frontend
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **State Management**: Zustand
+- **HTTP Client**: Axios
+- **Image Handling**: Next.js Image Optimization
+
+### Design System
+- **Colors**: Deep Forest Green (#2D5A27), Light Mint (#C8DEC8), Lavender Purple (#C084C8), Warm Cream (#F5F2E8)
+- **Typography**: Poltawski Nowy (headings), Poppins (body)
+- **UI Components**: shadcn/ui + custom components
+
+### Backend (Ready for Integration)
+- **Database**: MongoDB
+- **Authentication**: NextAuth.js (configured, not implemented)
+- **Payment Gateway**: Razorpay (ready for integration)
+- **Email Service**: SMTP (configured)
+
+## 📁 Project Structure
 
 ```
 /app
-  /layout.tsx                     # Root layout with fonts, metadata
-  /page.tsx                       # Homepage
-  /shop/page.tsx                  # Shop page (TODO)
-  /products/[slug]/page.tsx       # Product detail page (TODO)
-  /cart/page.tsx                  # Cart page (TODO)
-  /checkout/page.tsx              # Checkout page (TODO)
-  /login/page.tsx                 # Login page (TODO)
-  /about/page.tsx                 # About page (TODO)
-  /b2b/page.tsx                   # B2B page (TODO)
-  /blogs/page.tsx                 # Blog listing (TODO)
-  /blogs/[slug]/page.tsx          # Blog detail page (TODO)
-  /faq/page.tsx                   # FAQ page (TODO)
-  /account/page.tsx               # Account page (TODO)
-/components
-  /layout
-    Navbar.tsx                    # ✓ Complete
-    Footer.tsx                    # ✓ Complete
-  /ui
-    Button.tsx                    # ✓ Complete
-    ProductCard.tsx               # ✓ Complete
-    TestimonialCard.tsx           # ✓ Complete
-    SectionHeading.tsx            # ✓ Complete
-    Badge.tsx                     # ✓ Complete
-    Input.tsx                     # ✓ Complete
-    Textarea.tsx                  # ✓ Complete
-  /sections
-    Hero.tsx                      # ✓ Complete
-    FeaturedProducts.tsx          # ✓ Complete
-    VideoShowcase.tsx             # ✓ Complete
-    Testimonials.tsx              # ✓ Complete
-    B2BTeaser.tsx                 # ✓ Complete
-    Newsletter.tsx                # ✓ Complete
-/lib
-  /api.ts                         # ✓ Complete - ALL API calls centralized
-  /types.ts                       # ✓ Complete - TypeScript interfaces
-  /constants.ts                   # ✓ Complete - Site config, navigation
-/hooks
-  useCart.ts                      # TODO
-  useAuth.ts                      # TODO
-/store
-  cartStore.ts                    # ✓ Complete - Zustand cart store
-  authStore.ts                    # ✓ Complete - Zustand auth store
+├── app/                          # Next.js App Router
+│   ├── layout.tsx               # Root layout with Navbar + Footer
+│   ├── page.tsx                 # Homepage (10 sections)
+│   ├── shop/page.tsx            # Shop page
+│   ├── products/[slug]/page.tsx # Product detail pages
+│   ├── cart/page.tsx            # Shopping cart
+│   ├── checkout/page.tsx        # Checkout flow
+│   ├── order-confirmation/page.tsx # Order success
+│   ├── login/page.tsx           # Auth (Sign In + Sign Up)
+│   ├── account/page.tsx         # User dashboard
+│   ├── about/page.tsx           # Brand story
+│   ├── b2b/page.tsx             # Corporate gifting
+│   ├── blogs/page.tsx           # Blog listing
+│   ├── faq/page.tsx             # FAQ with search
+│   └── globals.css              # Global styles + brand variables
+├── components/
+│   ├── layout/                  # Navbar, Footer
+│   ├── ui/                      # Button, ProductCard, Logo, etc.
+│   └── sections/                # Homepage sections
+├── lib/
+│   ├── api.ts                   # Axios API client
+│   ├── types.ts                 # TypeScript interfaces
+│   └── constants.ts             # App constants
+├── store/
+│   ├── authStore.ts             # Zustand auth state
+│   └── cartStore.ts             # Zustand cart state
+├── public/
+│   ├── images/                  # Product images (18 total)
+│   ├── sitemap.xml              # SEO sitemap
+│   └── robots.txt               # SEO robots file
+├── tailwind.config.js           # Tailwind + brand colors
+├── next.config.js               # Next.js configuration
+└── package.json                 # Dependencies
 ```
 
-## Tech Stack
+## 🌐 Pages Overview
 
-- **Next.js 14** (App Router)
-- **TypeScript**
-- **Tailwind CSS**
-- **Framer Motion** (animations)
-- **Zustand** (state management)
-- **Axios** (API calls)
-- **NextAuth.js** (Google OAuth) - TODO: Setup
-- **Lucide React** (icons)
+| Page | Route | Description |
+|------|-------|-------------|
+| **Homepage** | `/` | Hero slider, trust bar, featured products, video showcase, testimonials, FAQ, newsletter |
+| **Shop** | `/shop` | Product grid with filters |
+| **Product Detail** | `/products/[slug]` | Image gallery, pricing, add to cart, reviews, tabs |
+| **Cart** | `/cart` | Cart items, quantity selector, coupon code, order summary |
+| **Checkout** | `/checkout` | Delivery form, payment, order summary |
+| **Order Confirmation** | `/order-confirmation` | Success message, order details |
+| **Login/Signup** | `/login` | Email/password auth + Google OAuth ready |
+| **Account** | `/account` | Profile, orders, wishlist, coupons |
+| **About Us** | `/about` | Founder story, brand values, vision, product teaser |
+| **B2B** | `/b2b` | Corporate gifting, pricing tiers, enquiry form |
+| **Blogs** | `/blogs` | Blog grid with 6 categories |
+| **FAQ** | `/faq` | Accordion-style, searchable, 4 categories |
 
-## Brand Identity
+## 🔌 API Endpoints (Backend Required)
 
-- **Company**: Habimint
-- **Slogan**: "From Aham to Ananta" (Aham = self-awareness, Ananta = limitless potential)
-- **Personality**: Premium, emotional, modern, human, inspiring
-- **Fonts**: 'Poltawski Nowy' (headings) + 'Poppins' (body)
+### Authentication
+- `POST /api/auth/login` — User login
+- `POST /api/auth/register` — User registration
+- `GET /api/auth/user` — Get current user
 
-## Color System
+### Products
+- `GET /api/products` — List all products
+- `GET /api/products/:slug` — Get single product
+- `GET /api/products/:id/reviews` — Get product reviews
 
-```css
---color-primary: #2D5A27          /* Deep Forest Green */
---color-primary-light: #C8DEC8    /* Light Mint/Sage */
---color-accent: #C084C8            /* Lavender Purple */
---color-accent-green: #6DC56D      /* Pen green */
---color-bg: #F5F2E8                /* Warm Cream - main background */
---color-bg-secondary: #EAE5D8      /* Warm Beige */
---color-dark: #1E2A3A              /* Dark Navy */
---color-text: #1A1A1A              /* Near black */
---color-text-light: #6B7280        /* Muted text */
---color-white: #FFFFFF
+### Cart
+- `GET /api/cart` — Get user cart
+- `POST /api/cart` — Add item to cart
+- `PUT /api/cart/:id` — Update cart item quantity
+- `DELETE /api/cart/:id` — Remove cart item
+
+### Orders
+- `POST /api/orders` — Create order
+- `GET /api/orders/my` — Get user orders
+- `GET /api/orders/:id` — Get single order
+
+### Coupons
+- `POST /api/coupon/apply` — Apply coupon code
+- `GET /api/coupons/my` — Get user coupons
+
+### User
+- `PUT /api/user/profile` — Update user profile
+- `GET /api/user/wishlist` — Get user wishlist
+
+### B2B
+- `POST /api/b2b/enquiry` — Submit B2B enquiry
+
+### Content
+- `GET /api/blogs` — Get blog posts
+- `POST /api/newsletter` — Subscribe to newsletter
+
+## 🔐 Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in the values:
+
+```bash
+# Next.js
+NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+
+# NextAuth
+NEXTAUTH_SECRET=your-secret-key
+NEXTAUTH_URL=http://localhost:3000
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# MongoDB
+MONGO_URL=mongodb://localhost:27017/habimint
+
+# Razorpay
+RAZORPAY_KEY_ID=your-razorpay-key
+RAZORPAY_KEY_SECRET=your-razorpay-secret
 ```
 
-## Getting Started
+## 🚀 How to Run Locally
 
 ### Prerequisites
-
-- Node.js 18+
-- yarn
+- Node.js 18+ installed
+- yarn package manager
 
 ### Installation
 
 ```bash
+# Install dependencies
 yarn install
-```
 
-### Environment Variables
-
-Create a `.env.local` file:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXTAUTH_SECRET=your-secret-here
-NEXTAUTH_URL=http://localhost:3000
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-```
-
-### Development
-
-```bash
+# Run development server
 yarn dev
+
+# Build for production
+yarn build
+
+# Start production server
+yarn start
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+The app will be available at `http://localhost:3000`
 
-### Build
+## 📦 Production Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. Push code to GitHub
+2. Connect GitHub repo to Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy automatically on every push
 
 ```bash
+# Or deploy with Vercel CLI
+npm i -g vercel
+vercel --prod
+```
+
+### Deploy to AWS (EC2 + PM2)
+
+```bash
+# Install PM2 globally
+npm install -g pm2
+
+# Build the app
+yarn build
+
+# Start with PM2
+pm2 start npm --name \"habimint\" -- start
+
+# Save PM2 process list
+pm2 save
+
+# Setup PM2 startup script
+pm2 startup
+```
+
+## 🖼 Image Assets
+
+All 18 product images are in `/public/images/`:
+
+### Fall Forward Journal
+- `fall-forward-hero.jpg` — Hero/main image
+- `fall-forward-cover.jpg` — Product cover
+- `fall-forward-open.jpg` — Open journal
+- `fall-forward-inside.jpg` — Inside pages
+- `fall-forward-desk.jpg` — Lifestyle shot
+- `fall-forward-spread.jpg` — Page spread
+- `fall-forward-quote.jpg` — Quote page
+- `fall-forward-banner.jpg` — Marketing banner
+- `fall-forward-window.jpg` — Window shot
+- `fall-forward-art-1.jpg` — Artwork 1
+- `fall-forward-art-2.jpg` — Artwork 2
+
+### Version 2.0 Journal
+- `version2-hero.jpg` — Hero/main image
+- `version2-cover.jpg` — Product cover
+- `version2-open.jpg` — Open journal
+- `version2-flat.jpg` — Flat lay
+
+### Brand Assets
+- `habimint-logo.svg` — Brand logo
+- `hero-slide-1.jpg`, `hero-slide-2.jpg`, `hero-slide-3.jpg` — Hero slider images
+
+## 🔧 Backend Integration Guide
+
+### 1. Authentication
+
+**Current State**: Uses Zustand store with localStorage (mock data)
+
+**Integration Steps**:
+1. Install NextAuth.js: `yarn add next-auth`
+2. Create `/app/api/auth/[...nextauth]/route.ts`
+3. Configure Google OAuth provider
+4. Update `authStore.ts` to call real API endpoints
+5. Replace mock login/register with actual API calls
+
+### 2. Products & Cart
+
+**Current State**: Static product data in components
+
+**Integration Steps**:
+1. Create MongoDB models: `Product`, `Cart`, `Order`
+2. Build API routes in `/app/api/` directory
+3. Update `lib/api.ts` with actual endpoints
+4. Replace static data with API calls
+
+### 3. Payment Gateway (Razorpay)
+
+**Integration Steps**:
+1. Install Razorpay: `yarn add razorpay`
+2. Create `/app/api/payment/create-order/route.ts`
+3. Add Razorpay checkout script to checkout page
+4. Handle payment callbacks
+
+## 🧪 Testing
+
+```bash
+# Run type checking
+yarn type-check
+
+# Run linting
+yarn lint
+
+# Run build check
 yarn build
 ```
 
-## API Integration
+## 📝 Features Checklist
 
-All API calls are centralized in `/lib/api.ts`. The backend developer only needs to:
+### ✅ Completed
+- [x] 12 complete pages with premium UI
+- [x] Responsive design (mobile, tablet, desktop)
+- [x] SEO optimization (meta tags, sitemap, robots.txt)
+- [x] Image optimization with Next.js Image
+- [x] Framer Motion animations
+- [x] Form validation
+- [x] State management (Zustand)
+- [x] Cart functionality
+- [x] User authentication UI
+- [x] Protected routes
 
-1. Set the `NEXT_PUBLIC_API_URL` environment variable
-2. Implement the endpoints documented in `/lib/api.ts`
-3. All endpoints follow the pattern: `/api/[resource]`
-
-## Components Built
-
-### Layout Components
-- **Navbar**: Sticky navbar with logo, navigation links, cart badge, user icon, mobile menu
-- **Footer**: Multi-column footer with links, social media, newsletter signup
-
-### UI Components
-- **Button**: Primary, secondary, ghost variants with loading states
-- **ProductCard**: Product display with image, details, badges, add to cart
-- **TestimonialCard**: Review card with star rating and author info
-- **SectionHeading**: Reusable section heading with subtitle
-- **Badge**: New, Bestseller, Sale badges
-- **Input**: Form input with label and error states
-- **Textarea**: Form textarea with label and error states
-
-### Section Components
-- **Hero**: Homepage hero with CTA buttons
-- **FeaturedProducts**: Product grid with cards
-- **VideoShowcase**: Video player section
-- **Testimonials**: Testimonial cards grid
-- **B2BTeaser**: B2B offering teaser
-- **Newsletter**: Newsletter subscription form
-
-## State Management
-
-### Cart Store (Zustand)
-- Add/remove/update items
-- Get item count and subtotal
-- Persists to localStorage
-- Mock implementation (replace with API calls)
-
-### Auth Store (Zustand)
-- Login/register/logout
-- User state management
-- Token management
-- Mock implementation (replace with API calls)
-
-## TODO - Backend Integration
-
-1. Replace mock implementations in stores with actual API calls
-2. Setup NextAuth.js for Google OAuth
-3. Implement remaining pages (shop, product detail, cart, checkout, etc.)
-4. Add toast notifications for user feedback
-5. Connect video showcase with actual video URLs
-6. Implement search functionality
-7. Add product filtering and sorting
-
-## Notes
-
-- All API calls use `NEXT_PUBLIC_API_URL` environment variable
-- TypeScript interfaces defined in `/lib/types.ts`
-- Design system follows brand colors strictly
-- Mobile-first responsive design
-- Framer Motion animations throughout
-- All TODO comments mark areas needing backend integration
+### 🔲 Backend Integration Required
+- [ ] Connect to MongoDB database
+- [ ] Implement authentication API
+- [ ] Build product/cart/order APIs
+- [ ] Integrate Razorpay payment
+- [ ] Setup email notifications
 
 ---
 
-© 2025 Habimint. From Aham to Ananta.
+**Built with ❤️ by the Habimint team**
+
+From Aham to Ananta 🌱

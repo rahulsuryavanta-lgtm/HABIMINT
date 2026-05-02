@@ -4,18 +4,20 @@ export interface Product {
   id: string;
   slug: string;
   name: string;
+  tagline?: string;
   description: string;
-  shortDescription: string;
+  shortDescription?: string;
   price: number;
   originalPrice?: number;
-  images: string[];
-  category: string;
-  inStock: boolean;
-  badge?: 'New' | 'Bestseller' | 'Sale';
+  image?: string; // Main product image (for quick access)
+  images?: string[]; // Gallery images
+  category?: string;
+  inStock?: boolean;
+  badge?: 'New' | 'Bestseller' | 'Sale' | string;
   features?: string[];
   specifications?: Record<string, string>;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface CartItem {

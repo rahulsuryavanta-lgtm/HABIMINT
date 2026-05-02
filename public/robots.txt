@@ -1,0 +1,13 @@
+# Habimint - Premium Wellness Journals
+# From Aham to Ananta
+
+User-agent: *
+Allow: /
+
+# Disallow private pages
+Disallow: /account
+Disallow: /checkout
+Disallow: /order-confirmation
+
+# Sitemap
+Sitemap: https://habimint.com/sitemap.xml
