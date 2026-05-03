@@ -12,8 +12,8 @@ export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   
-  // Video mute state
-  const [isMuted, setIsMuted] = useState(false);
+  // Video mute state — must start muted so browsers allow autoplay
+  const [isMuted, setIsMuted] = useState(true);
 
   const heroSlides = [
     {
@@ -529,12 +529,23 @@ export default function HomePage() {
                   ref={(el) => {
                     if (el) {
                       el.muted = isMuted;
+                      const p = el.play();
+                      if (p && typeof p.catch === 'function') {
+                        p.catch(() => {
+                          el.muted = true;
+                          el.play().catch(() => {});
+                        });
+                      }
                     }
                   }}
-                  src="/videos/fall-forward-reel.mp4"
+                  poster="/images/fall-forward-open.jpg"
                   autoPlay
                   loop
+                  muted
                   playsInline
+                  preload="auto"
+                  controls={false}
+                  key="ff-reel-h264-v2"
                   style={{
                     width: '260px',
                     aspectRatio: '9/16',
@@ -555,7 +566,10 @@ export default function HomePage() {
                     img.style.boxShadow = '0 25px 50px rgba(0,0,0,0.3)';
                     e.currentTarget.parentNode?.replaceChild(img, e.currentTarget);
                   }}
-                />
+                >
+                  <source src="/videos/fall-forward-reel.mp4?v=h264" type="video/mp4; codecs=avc1.4d401f,mp4a.40.2" />
+                  <source src="/videos/fall-forward-reel.mp4?v=h264" type="video/mp4" />
+                </video>
                 {/* Mute/Unmute Button */}
                 <button
                   onClick={() => setIsMuted(!isMuted)}
