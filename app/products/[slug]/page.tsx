@@ -578,6 +578,107 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                 >
+                  {/* Featured Review */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-50px' }}
+                    transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+                    className="rounded-2xl"
+                    style={{
+                      backgroundColor: '#F5F2E8',
+                      border: '2px solid #C8DEC8',
+                      borderRadius: '16px',
+                      padding: '32px',
+                      marginBottom: '32px',
+                    }}
+                  >
+                    <div className="flex flex-col md:flex-row gap-8 items-stretch">
+                      {/* LEFT: Text */}
+                      <div className="flex-1 flex flex-col">
+                        <span
+                          className="inline-block self-start rounded-full text-xs font-semibold tracking-wider"
+                          style={{
+                            backgroundColor: '#2D5A27',
+                            color: '#FFFFFF',
+                            padding: '6px 14px',
+                            marginBottom: '16px',
+                            fontFamily: 'Poppins, sans-serif',
+                          }}
+                        >
+                          FEATURED REVIEW
+                        </span>
+
+                        <div className="flex gap-1 mb-4">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                            />
+                          ))}
+                        </div>
+
+                        <p
+                          className="italic"
+                          style={{
+                            fontFamily: 'Poppins, sans-serif',
+                            fontSize: '16px',
+                            color: '#374151',
+                            lineHeight: 1.8,
+                          }}
+                        >
+                          &ldquo;As someone who constantly juggles creativity and business, this journal brought a sense of structure and calm into my life. I was one of the first to use it, and honestly, I didn&rsquo;t expect it to have this much impact. The way it guides your thoughts, helps you reflect, and builds discipline without feeling overwhelming is beautiful. It&rsquo;s not just a journal — it feels like a personal space where I can reset every day. I&rsquo;ve seen a real shift in my focus, clarity, and consistency. Highly recommend this to anyone who wants to grow while staying grounded.&rdquo;
+                        </p>
+
+                        <div style={{ marginTop: '20px' }}>
+                          <p
+                            style={{
+                              fontFamily: 'Poppins, sans-serif',
+                              fontWeight: 700,
+                              fontSize: '16px',
+                              color: '#1A1A1A',
+                              margin: 0,
+                            }}
+                          >
+                            Shruti Patel
+                          </p>
+                          <p
+                            style={{
+                              fontFamily: 'Poppins, sans-serif',
+                              fontSize: '13px',
+                              color: '#6B7280',
+                              margin: '4px 0 0 0',
+                            }}
+                          >
+                            Founder, Simply Artistic
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* RIGHT: Image */}
+                      <div
+                        className="w-full md:w-auto flex-shrink-0"
+                        style={{ maxWidth: '320px' }}
+                      >
+                        <div
+                          className="relative w-full overflow-hidden"
+                          style={{
+                            aspectRatio: '4 / 3',
+                            borderRadius: '12px',
+                            boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                          }}
+                        >
+                          <img
+                            src="/images/shruti-review-collage.jpg"
+                            alt="Shruti Patel using the Fall Forward journal"
+                            className="w-full h-full"
+                            style={{ objectFit: 'cover', display: 'block' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
                   {/* Rating Summary */}
                   <div className="bg-habimint-bg rounded-2xl p-8 mb-8">
                     <div className="flex items-center gap-8">
