@@ -111,42 +111,57 @@ export default function HomePage() {
       {/* SECTION 1 — HERO (Nike.com level) */}
       {/* ═══════════════════════════════════════════════════════════ */}
       <section
-        className="relative w-screen h-screen overflow-hidden"
+        className="relative w-screen overflow-hidden h-screen md:h-screen habimint-hero"
+        style={{ margin: 0, padding: 0 }}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
         {/* Hero Slides */}
         <div className="absolute inset-0">
-          {heroSlides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className="absolute inset-0 transition-opacity duration-1000"
-              style={{ opacity: index === currentSlide ? 1 : 0 }}
-            >
-              {/* Background Image */}
-              <Image
-                src={slide.image}
-                alt={slide.label}
-                fill
-                quality={95}
-                className="object-cover object-center"
-                sizes="100vw"
-                priority={index === 0}
-              />
-
-              {/* Dark Gradient Overlay */}
+          {heroSlides.map((slide, index) => {
+            // Use different objectPosition per slide to avoid watermarks/crops on mobile
+            const isVersion2 = slide.image.includes('version2-hero');
+            const mobileObjectPos = isVersion2 ? 'center 20%' : 'center 30%';
+            return (
               <div
-                className="absolute inset-0"
-                style={{
-                  background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 70%)',
-                }}
-              />
-            </div>
-          ))}
+                key={slide.id}
+                className="absolute inset-0 overflow-hidden transition-opacity duration-1000"
+                style={{ opacity: index === currentSlide ? 1 : 0 }}
+              >
+                {/* Background Image */}
+                <Image
+                  src={slide.image}
+                  alt={slide.label}
+                  fill
+                  quality={95}
+                  sizes="100vw"
+                  priority={index === 0}
+                  className="hero-slide-img"
+                  style={{
+                    objectFit: 'cover',
+                    objectPosition: 'center center',
+                  }}
+                  data-mpos={mobileObjectPos}
+                />
+
+                {/* Dark Gradient Overlay (stronger for text readability) */}
+                <div
+                  className="absolute inset-0 z-[1]"
+                  style={{
+                    background:
+                      'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.75) 100%)',
+                  }}
+                />
+              </div>
+            );
+          })}
         </div>
 
         {/* Slide Content */}
-        <div className="absolute bottom-20 left-0 right-0 z-10 text-center px-6">
+        <div
+          className="absolute left-0 right-0 z-[2] text-center px-5 md:px-6"
+          style={{ bottom: 'clamp(100px, 12vh, 120px)' }}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -160,7 +175,8 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0, duration: 0.6 }}
-                className="text-habimint-accent-green text-xs tracking-widest uppercase mb-4"
+                className="text-habimint-accent-green uppercase mb-3 md:mb-4 text-[10px] md:text-xs"
+                style={{ letterSpacing: '0.15em' }}
               >
                 {heroSlides[currentSlide].label}
               </motion.p>
@@ -170,12 +186,13 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.6 }}
-                className="mb-4"
+                className="mb-3 md:mb-4"
               >
                 {heroSlides[currentSlide].heading.map((line, i) => (
                   <h1
                     key={i}
-                    className="font-heading text-4xl md:text-7xl font-bold text-white leading-tight"
+                    className="font-heading font-bold text-white text-[34px] md:text-7xl"
+                    style={{ lineHeight: 1.2 }}
                   >
                     {line}
                   </h1>
@@ -187,7 +204,8 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
-                className="text-white/85 text-base md:text-lg mb-6 max-w-2xl mx-auto"
+                className="text-white/90 text-[14px] md:text-lg mb-5 md:mb-6 max-w-2xl mx-auto"
+                style={{ lineHeight: 1.6 }}
               >
                 {heroSlides[currentSlide].subtext}
               </motion.p>
@@ -197,15 +215,19 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.45, duration: 0.6 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center"
               >
-                <Link href={heroSlides[currentSlide].primaryButton.href}>
-                  <button className="px-8 py-3 bg-white text-habimint-text font-semibold rounded-full hover:bg-white/90 transition-all duration-300 hover:scale-105">
+                <Link href={heroSlides[currentSlide].primaryButton.href} className="w-[85%] sm:w-auto block">
+                  <button
+                    className="w-full sm:w-auto bg-white text-habimint-text font-semibold rounded-full hover:bg-white/90 transition-all duration-300 hover:scale-105 px-6 md:px-8 py-[14px] md:py-3 text-[15px] md:text-base"
+                  >
                     {heroSlides[currentSlide].primaryButton.text}
                   </button>
                 </Link>
-                <Link href={heroSlides[currentSlide].secondaryButton.href}>
-                  <button className="px-8 py-3 bg-transparent text-white border-2 border-white font-semibold rounded-full hover:bg-white hover:text-habimint-text transition-all duration-300 hover:scale-105">
+                <Link href={heroSlides[currentSlide].secondaryButton.href} className="w-[85%] sm:w-auto block">
+                  <button
+                    className="w-full sm:w-auto bg-transparent text-white border-2 border-white font-semibold rounded-full hover:bg-white hover:text-habimint-text transition-all duration-300 hover:scale-105 px-6 md:px-8 py-[14px] md:py-3 text-[15px] md:text-base"
+                  >
                     {heroSlides[currentSlide].secondaryButton.text}
                   </button>
                 </Link>
@@ -214,16 +236,22 @@ export default function HomePage() {
           </AnimatePresence>
         </div>
 
-        {/* Dot Indicators - Centered */}
-        <div className="absolute z-20 flex gap-3 md:gap-3" style={{ bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
+        {/* Dot Indicators — simple round circles on mobile, pill on desktop */}
+        <div
+          className="absolute z-20 flex items-center"
+          style={{ bottom: '60px', left: '50%', transform: 'translateX(-50%)', gap: '8px' }}
+        >
           {heroSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentSlide ? 'w-10 h-3 bg-white' : 'w-3 h-3 bg-white/40 hover:bg-white/60'
-              }`}
               aria-label={`Go to slide ${index + 1}`}
+              className={`transition-all duration-300 rounded-full ${
+                index === currentSlide
+                  ? 'w-2 h-2 md:w-10 md:h-3 bg-white opacity-100'
+                  : 'w-2 h-2 md:w-3 md:h-3 bg-white/50 hover:bg-white/70'
+              }`}
+              style={{ border: 'none', padding: 0 }}
             />
           ))}
         </div>

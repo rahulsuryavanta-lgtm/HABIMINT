@@ -105,4 +105,27 @@
       word-break: break-word;
     }
   }
+
+  /* Hero section — use svh on mobile so it accounts for the browser chrome */
+  .habimint-hero {
+    height: 100vh;
+  }
+  @supports (height: 100svh) {
+    .habimint-hero {
+      height: 100svh;
+    }
+  }
+  @media (max-width: 768px) {
+    .habimint-hero {
+      min-height: 600px;
+      max-height: 900px;
+    }
+    /* On mobile, shift the hero image to avoid cutting off watermark/binding */
+    .hero-slide-img[data-mpos="center 30%"] {
+      object-position: center 30% !important;
+    }
+    .hero-slide-img[data-mpos="center 20%"] {
+      object-position: center 20% !important;
+    }
+  }
 }
