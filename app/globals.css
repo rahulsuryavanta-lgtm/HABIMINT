@@ -115,17 +115,43 @@
       height: 100svh;
     }
   }
+
+  /* Default desktop overlay — stronger at bottom for text readability */
+  .hero-slide-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.4) 40%,
+      rgba(0, 0, 0, 0.75) 100%
+    );
+  }
+
   @media (max-width: 768px) {
     .habimint-hero {
       min-height: 600px;
       max-height: 900px;
     }
-    /* On mobile, shift the hero image to avoid cutting off watermark/binding */
-    .hero-slide-img[data-mpos="center 30%"] {
-      object-position: center 30% !important;
+
+    /* Mobile: softer gradient — full product visible at top, dark for text at bottom */
+    .hero-slide-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.2) 40%,
+        rgba(0, 0, 0, 0.8) 85%,
+        rgba(0, 0, 0, 0.9) 100%
+      );
     }
-    .hero-slide-img[data-mpos="center 20%"] {
-      object-position: center 20% !important;
+
+    /* Per-image object-position on mobile — keeps the journal product visible without crop */
+    .hero-slide-img[data-img="fall-forward-window"] {
+      object-position: 60% top !important;
+    }
+    .hero-slide-img[data-img="fall-forward-hero"] {
+      object-position: center top !important;
+    }
+    .hero-slide-img[data-img="version2-hero"] {
+      object-position: 40% center !important;
     }
   }
 }

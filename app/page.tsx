@@ -119,9 +119,8 @@ export default function HomePage() {
         {/* Hero Slides */}
         <div className="absolute inset-0">
           {heroSlides.map((slide, index) => {
-            // Use different objectPosition per slide to avoid watermarks/crops on mobile
-            const isVersion2 = slide.image.includes('version2-hero');
-            const mobileObjectPos = isVersion2 ? 'center 20%' : 'center 30%';
+            // Use a key from the image filename so CSS can target the correct mobile object-position per image
+            const imgKey = slide.image.split('/').pop()?.split('.')[0] || '';
             return (
               <div
                 key={slide.id}
@@ -141,16 +140,12 @@ export default function HomePage() {
                     objectFit: 'cover',
                     objectPosition: 'center center',
                   }}
-                  data-mpos={mobileObjectPos}
+                  data-img={imgKey}
                 />
 
-                {/* Dark Gradient Overlay (stronger for text readability) */}
+                {/* Dark Gradient Overlay — softer at top so journal cover is fully visible on mobile */}
                 <div
-                  className="absolute inset-0 z-[1]"
-                  style={{
-                    background:
-                      'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.75) 100%)',
-                  }}
+                  className="absolute inset-0 z-[1] hero-slide-overlay"
                 />
               </div>
             );
