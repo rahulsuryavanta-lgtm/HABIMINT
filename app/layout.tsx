@@ -41,7 +41,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <Navbar />
-        <main className="min-h-screen">
+        <main className="min-h-screen overflow-x-hidden w-full">
           {children}
         </main>
         <Footer />

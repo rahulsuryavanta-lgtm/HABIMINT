@@ -76,6 +76,7 @@
 @layer base {
   * {
     @apply border-border;
+    max-width: 100%;
     }
   html, body {
     overflow-x: hidden;

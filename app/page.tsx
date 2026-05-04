@@ -1,7 +1,7 @@
 // Habimint Homepage - World-Class Premium
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,6 +14,25 @@ export default function HomePage() {
   
   // Video mute state — must start muted so browsers allow autoplay
   const [isMuted, setIsMuted] = useState(true);
+
+  // Touch swipe support for hero slider
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const nextSlide = () =>
+    setCurrentSlide((prev) => (prev + 1) % 5);
+  const prevSlide = () =>
+    setCurrentSlide((prev) => (prev - 1 + 5) % 5);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 50) nextSlide();
+    if (diff < -50) prevSlide();
+  };
 
   const heroSlides = [
     {
@@ -50,7 +69,7 @@ export default function HomePage() {
     if (!isPlaying) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
+    }, 4000);
     return () => clearInterval(interval);
   }, [isPlaying, heroSlides.length]);
 
@@ -91,7 +110,11 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════ */}
       {/* SECTION 1 — HERO (Nike.com level) */}
       {/* ═══════════════════════════════════════════════════════════ */}
-      <section className="relative w-screen h-screen overflow-hidden">
+      <section
+        className="relative w-screen h-screen overflow-hidden"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         {/* Hero Slides */}
         <div className="absolute inset-0">
           {heroSlides.map((slide, index) => (
@@ -192,7 +215,7 @@ export default function HomePage() {
         </div>
 
         {/* Dot Indicators - Centered */}
-        <div className="absolute z-20 flex gap-3" style={{ bottom: '32px', left: '50%', transform: 'translateX(-50%)' }}>
+        <div className="absolute z-20 flex gap-3 md:gap-3" style={{ bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
           {heroSlides.map((_, index) => (
             <button
               key={index}
@@ -205,23 +228,26 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Arrow + Play/Pause - Bottom Right */}
-        <div className="absolute z-20 flex gap-3" style={{ bottom: '32px', right: '24px' }}>
+        {/* Arrow + Play/Pause - Bottom Right (desktop only) */}
+        <div className="absolute z-20 hidden md:flex gap-3" style={{ bottom: '32px', right: '24px' }}>
           <button
-            onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
+            onClick={prevSlide}
             className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
+            aria-label="Previous slide"
           >
             <ChevronLeft className="w-6 h-6 text-white" />
           </button>
           <button
-            onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
+            onClick={nextSlide}
             className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
+            aria-label="Next slide"
           >
             <ChevronRight className="w-6 h-6 text-white" />
           </button>
           <button
             onClick={() => setIsPlaying(!isPlaying)}
             className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
+            aria-label={isPlaying ? 'Pause autoplay' : 'Play autoplay'}
           >
             {isPlaying ? <Pause className="w-5 h-5 text-white" /> : <Play className="w-5 h-5 text-white ml-0.5" />}
           </button>
@@ -411,8 +437,8 @@ export default function HomePage() {
           </p>
         </motion.div>
 
-        {/* Banners — full-width edge to edge */}
-        <div className="flex flex-col w-full">
+        {/* Banners — DESKTOP ONLY (hidden on mobile) */}
+        <div className="hidden md:flex flex-col w-full">
           {[
             { src: '/images/hero-slide-1.jpg', delay: 0 },
             { src: '/images/hero-slide-2.jpg', delay: 0.2 },
@@ -442,6 +468,78 @@ export default function HomePage() {
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        {/* MOBILE ALTERNATIVE — clean product preview */}
+        <div className="md:hidden px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6 }}
+            className="max-w-md mx-auto"
+          >
+            {/* Two product images side by side */}
+            <div className="grid grid-cols-2 gap-3 mb-6">
+              <Link href="/products/fall-forward" className="block">
+                <div className="relative w-full overflow-hidden rounded-xl shadow-md" style={{ aspectRatio: '3 / 4' }}>
+                  <img
+                    src="/images/fall-forward-cover.jpg"
+                    alt="Fall Forward — Cover"
+                    className="w-full h-full"
+                    style={{ objectFit: 'cover', display: 'block' }}
+                  />
+                </div>
+              </Link>
+              <Link href="/products/fall-forward" className="block">
+                <div className="relative w-full overflow-hidden rounded-xl shadow-md" style={{ aspectRatio: '3 / 4' }}>
+                  <img
+                    src="/images/fall-forward-inside.jpg"
+                    alt="Fall Forward — Inside"
+                    className="w-full h-full"
+                    style={{ objectFit: 'cover', display: 'block' }}
+                  />
+                </div>
+              </Link>
+            </div>
+
+            {/* Bullet points */}
+            <ul className="space-y-3 mb-6">
+              {[
+                '316 pages of guided daily reflection',
+                '4 exclusive artworks inside',
+                'Monthly planning + budget tracking',
+              ].map((point) => (
+                <li
+                  key={point}
+                  className="flex items-start gap-3"
+                  style={{ fontFamily: 'Poppins, sans-serif', fontSize: '15px', color: '#374151', lineHeight: 1.6 }}
+                >
+                  <span
+                    className="inline-flex items-center justify-center rounded-full shrink-0"
+                    style={{ width: 22, height: 22, backgroundColor: '#2D5A27', marginTop: 2 }}
+                  >
+                    <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
+                  </span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA Button */}
+            <Link
+              href="/products/fall-forward"
+              className="flex items-center justify-center w-full rounded-full text-white font-semibold transition hover:brightness-110 min-h-[48px]"
+              style={{
+                backgroundColor: '#2D5A27',
+                fontFamily: 'Poppins, sans-serif',
+                fontSize: '15px',
+                padding: '12px 24px',
+              }}
+            >
+              Shop Fall Forward →
+            </Link>
+          </motion.div>
         </div>
       </section>
 
