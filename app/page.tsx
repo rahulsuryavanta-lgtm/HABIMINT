@@ -5,13 +5,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Play, Pause, Check, Truck, Star, Package, Lock, Volume2, VolumeX } from 'lucide-react';
+import { Check, Truck, Star, Package, Lock, Volume2, VolumeX } from 'lucide-react';
 
 export default function HomePage() {
   // Hero slider state
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  
+
   // Video mute state — must start muted so browsers allow autoplay
   const [isMuted, setIsMuted] = useState(true);
 
@@ -20,9 +19,9 @@ export default function HomePage() {
   const touchEndX = useRef(0);
 
   const nextSlide = () =>
-    setCurrentSlide((prev) => (prev + 1) % 5);
+    setCurrentSlide((prev) => (prev + 1) % 3);
   const prevSlide = () =>
-    setCurrentSlide((prev) => (prev - 1 + 5) % 5);
+    setCurrentSlide((prev) => (prev - 1 + 3) % 3);
 
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -66,12 +65,11 @@ export default function HomePage() {
 
   // Auto-advance slides
   useEffect(() => {
-    if (!isPlaying) return;
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [isPlaying, heroSlides.length]);
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev >= 2 ? 0 : prev + 1));
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Newsletter form state
   const [email, setEmail] = useState('');
@@ -231,50 +229,7 @@ export default function HomePage() {
           </AnimatePresence>
         </div>
 
-        {/* Dot Indicators — simple round circles on mobile, pill on desktop */}
-        <div
-          className="absolute z-20 flex items-center"
-          style={{ bottom: '60px', left: '50%', transform: 'translateX(-50%)', gap: '8px' }}
-        >
-          {heroSlides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentSlide
-                  ? 'w-2 h-2 md:w-10 md:h-3 bg-white opacity-100'
-                  : 'w-2 h-2 md:w-3 md:h-3 bg-white/50 hover:bg-white/70'
-              }`}
-              style={{ border: 'none', padding: 0 }}
-            />
-          ))}
-        </div>
-
-        {/* Arrow + Play/Pause - Bottom Right (desktop only) */}
-        <div className="absolute z-20 hidden md:flex gap-3" style={{ bottom: '32px', right: '24px' }}>
-          <button
-            onClick={prevSlide}
-            className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="w-6 h-6 text-white" />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="w-6 h-6 text-white" />
-          </button>
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center"
-            aria-label={isPlaying ? 'Pause autoplay' : 'Play autoplay'}
-          >
-            {isPlaying ? <Pause className="w-5 h-5 text-white" /> : <Play className="w-5 h-5 text-white ml-0.5" />}
-          </button>
-        </div>
+        {/* Slide Content */}
       </section>
 
       {/* ═══════════════════════════════════════════════════════════ */}
