@@ -40,8 +40,8 @@ export const FOOTER_LINKS = {
     { name: 'Shipping', href: '/faq#shipping' },
   ],
   legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms & Conditions', href: '/terms' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms & Conditions', href: '/terms-condition' },
   ],
 };
 

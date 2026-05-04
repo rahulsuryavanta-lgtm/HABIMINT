@@ -39,6 +39,8 @@ export default function CheckoutPage() {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [placingOrder, setPlacingOrder] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [termsError, setTermsError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchCart();
@@ -95,6 +97,11 @@ export default function CheckoutPage() {
     if (!validateForm()) {
       return;
     }
+    if (!agreedToTerms) {
+      setTermsError('Please agree to our Terms & Conditions to proceed.');
+      return;
+    }
+    setTermsError(null);
 
     setPlacingOrder(true);
     try {
@@ -486,11 +493,55 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
+                {/* Terms & Conditions Agreement */}
+                <div className="flex items-start gap-3 mb-3">
+                  <input
+                    type="checkbox"
+                    id="terms-agree"
+                    required
+                    checked={agreedToTerms}
+                    onChange={(e) => {
+                      setAgreedToTerms(e.target.checked);
+                      if (e.target.checked) setTermsError(null);
+                    }}
+                    className="mt-1 w-4 h-4 accent-[#2D5A27] cursor-pointer"
+                  />
+                  <label
+                    htmlFor="terms-agree"
+                    className="text-sm text-gray-600 leading-relaxed cursor-pointer"
+                  >
+                    I have read and agree to the{' '}
+                    <a
+                      href="/terms-condition"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#2D5A27] underline font-medium"
+                    >
+                      Terms &amp; Conditions
+                    </a>{' '}
+                    and{' '}
+                    <a
+                      href="/privacy-policy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#2D5A27] underline font-medium"
+                    >
+                      Privacy Policy
+                    </a>{' '}
+                    of Habimint.
+                  </label>
+                </div>
+                {termsError && (
+                  <p className="text-sm text-red-600 mb-3" role="alert">
+                    {termsError}
+                  </p>
+                )}
+
                 {/* Place Order Button */}
                 <button
                   onClick={handlePlaceOrder}
-                  disabled={placingOrder}
-                  className="w-full bg-habimint-primary text-white py-4 rounded-full font-semibold text-lg hover:bg-opacity-90 transition disabled:opacity-70 disabled:cursor-not-allowed mb-4"
+                  disabled={placingOrder || !agreedToTerms}
+                  className="w-full bg-habimint-primary text-white py-4 rounded-full font-semibold text-lg hover:bg-opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed mb-4"
                 >
                   {placingOrder ? 'Placing Order...' : 'Place Order'}
                 </button>

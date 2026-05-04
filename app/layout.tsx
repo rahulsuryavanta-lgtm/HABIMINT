@@ -2,6 +2,7 @@ import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { SITE_CONFIG } from '@/lib/constants'
+import CookieBanner from '@/components/ui/CookieBanner'
 
 export const metadata = {
   title: 'Habimint — Premium Habit Journals | From Aham to Ananta',
@@ -44,6 +45,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   )
