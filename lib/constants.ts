@@ -8,7 +8,7 @@ export const SITE_CONFIG = {
   description: 'Premium Indian wellness and self-growth journals',
   url: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000',
   apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
-  email: 'hello@habimint.com',
+  email: 'info@habimint.com',
   phone: '+91 XXXX XXXXXX',
   social: {
     instagram: 'https://instagram.com/habimint',

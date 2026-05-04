@@ -34,7 +34,7 @@ export default function FAQPage() {
           id: 'damaged-order',
           question: 'What if my order is damaged?',
           answer:
-            'We have a hassle-free return policy. Contact us within 7 days of delivery at hello@habimint.com with photos of the damaged product, and we\'ll arrange a replacement immediately.',
+            'We have a hassle-free return policy. Contact us within 7 days of delivery at info@habimint.com with photos of the damaged product, and we\'ll arrange a replacement immediately.',
         },
       ],
     },
@@ -97,7 +97,7 @@ export default function FAQPage() {
           id: 'bulk-minimum',
           question: 'What is the minimum order for bulk pricing?',
           answer:
-            'Minimum 20 units for bulk pricing. Custom branding options are available from 50 units onwards. Contact us at hello@habimint.com for a detailed quote.',
+            'Minimum 20 units for bulk pricing. Custom branding options are available from 50 units onwards. Contact us at info@habimint.com for a detailed quote.',
         },
         {
           id: 'customize',
@@ -285,11 +285,11 @@ export default function FAQPage() {
               <p className="text-habimint-text-light mb-6">We're here to help!</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="mailto:hello@habimint.com"
+                  href="mailto:info@habimint.com"
                   className="inline-flex items-center gap-2 bg-habimint-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition"
                 >
                   <Mail className="w-5 h-5" />
-                  hello@habimint.com
+                  info@habimint.com
                 </a>
                 <a
                   href="https://wa.me/918884049090"
