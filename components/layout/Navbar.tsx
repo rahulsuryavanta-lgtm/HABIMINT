@@ -48,13 +48,14 @@ export const Navbar: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center shrink-0">
               <Image 
                 src="/images/habimint-logo.svg" 
                 alt="Habimint" 
                 width={180} 
                 height={60} 
                 priority 
+                className="h-auto w-[140px] sm:w-[160px] md:w-[180px]"
               />
             </Link>
 
@@ -73,10 +74,10 @@ export const Navbar: React.FC = () => {
             </div>
 
             {/* Right Side Actions */}
-            <div className="flex items-center gap-4">
-              {/* Search Icon */}
+            <div className="flex items-center gap-1 sm:gap-3 md:gap-4">
+              {/* Search Icon - hidden on very small screens */}
               <button
-                className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                className="hidden sm:block p-2 hover:bg-white/10 rounded-full transition-colors"
                 aria-label="Search"
               >
                 <Search className={`w-5 h-5 ${linkColor} ${hoverColor} transition-colors`} />
@@ -140,25 +141,55 @@ export const Navbar: React.FC = () => {
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
-            {/* Menu Content */}
+            {/* Menu Content - Full screen drawer */}
             <motion.div
-              className="absolute top-20 right-0 w-full max-w-sm bg-habimint-primary shadow-2xl"
+              className="absolute top-0 right-0 bottom-0 w-full max-w-sm bg-habimint-primary shadow-2xl flex flex-col"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30 }}
             >
-              <div className="p-6 space-y-4">
+              {/* Drawer header with close button */}
+              <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+                <span className="text-white font-heading text-lg">Menu</span>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 -mr-2 rounded-full hover:bg-white/10 transition"
+                  aria-label="Close menu"
+                >
+                  <X className="w-6 h-6 text-white" />
+                </button>
+              </div>
+
+              <div className="p-6 space-y-2 flex-1 overflow-y-auto">
                 {NAVIGATION_LINKS.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="block py-3 px-4 text-lg font-medium text-habimint-primary-light hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                    className="flex items-center min-h-[48px] py-3 px-4 text-lg font-medium text-habimint-primary-light hover:text-white hover:bg-white/10 rounded-lg transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.name}
                   </Link>
                 ))}
+
+                {/* Quick legal links */}
+                <div className="pt-4 mt-4 border-t border-white/10 space-y-1">
+                  <Link
+                    href="/privacy-policy"
+                    className="block py-2 px-4 text-sm text-habimint-primary-light/80 hover:text-white"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Privacy Policy
+                  </Link>
+                  <Link
+                    href="/terms-condition"
+                    className="block py-2 px-4 text-sm text-habimint-primary-light/80 hover:text-white"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Terms &amp; Conditions
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </motion.div>

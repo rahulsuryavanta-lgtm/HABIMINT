@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, AlertTriangle, X as XIcon } from 'lucide-react';
 import BackToTop from '@/components/ui/BackToTop';
+import ResponsiveToc from '@/components/ui/ResponsiveToc';
 
 const TOC = [
   { id: 'services', label: 'Our Services' },
@@ -129,45 +130,13 @@ export default function TermsPage() {
       </section>
 
       {/* MAIN CONTENT */}
-      <section style={{ padding: '60px 24px' }}>
+      <section className="px-4 sm:px-6" style={{ padding: '60px 0' }}>
         <div
-          className="mx-auto grid gap-10 lg:grid-cols-[260px_1fr]"
+          className="mx-auto grid gap-6 lg:gap-10 lg:grid-cols-[260px_1fr]"
           style={{ maxWidth: '1100px' }}
         >
-          {/* TOC */}
-          <aside className="lg:sticky lg:top-24 lg:self-start">
-            <div
-              className="rounded-2xl p-5"
-              style={{ backgroundColor: '#F5F2E8', maxHeight: 'calc(100vh - 120px)', overflowY: 'auto' }}
-            >
-              <p
-                className="font-heading mb-3"
-                style={{ fontSize: '18px', color: '#2D5A27' }}
-              >
-                Table of Contents
-              </p>
-              <ol className="space-y-2">
-                {TOC.map((item, idx) => (
-                  <li key={item.id}>
-                    <button
-                      onClick={() => handleTocClick(item.id)}
-                      className="text-left w-full transition"
-                      style={{
-                        fontFamily: 'Poppins, sans-serif',
-                        fontSize: '13px',
-                        lineHeight: 1.5,
-                        color: active === item.id ? '#2D5A27' : '#374151',
-                        fontWeight: active === item.id ? 600 : 400,
-                        opacity: active === item.id ? 1 : 0.85,
-                      }}
-                    >
-                      {idx + 1}. {item.label}
-                    </button>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </aside>
+          {/* TOC (responsive) */}
+          <ResponsiveToc items={TOC} active={active} onClick={handleTocClick} />
 
           {/* CONTENT */}
           <article
@@ -218,8 +187,8 @@ function Section({
       }}
     >
       <h2
-        className="font-heading flex items-center gap-3 mb-4"
-        style={{ fontSize: '22px', color: '#1A1A1A' }}
+        className="font-heading flex items-center gap-3 mb-4 text-[20px] sm:text-[22px]"
+        style={{ color: '#1A1A1A' }}
       >
         <span
           className="inline-flex items-center justify-center rounded-full text-white text-xs"

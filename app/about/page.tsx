@@ -146,7 +146,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.6 }}
                 className="relative"
               >
-                <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-xl transform rotate-2">
+                <div className="relative h-[400px] sm:h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-xl transform-none md:rotate-2">
                   <Image
                     src="/images/fall-forward-desk.jpg"
                     alt="Habimint Journal on Desk"

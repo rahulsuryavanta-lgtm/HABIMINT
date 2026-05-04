@@ -64,10 +64,10 @@ export default function CookieBanner() {
               </Link>
               .
             </p>
-            <div className="flex gap-3 shrink-0">
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full md:w-auto">
               <button
                 onClick={() => dismiss('declined')}
-                className="rounded-full px-5 py-2 text-sm transition hover:bg-white/10"
+                className="rounded-full px-5 py-3 text-sm transition hover:bg-white/10 w-full md:w-auto min-h-[44px]"
                 style={{
                   border: '1px solid rgba(255,255,255,0.9)',
                   color: '#FFFFFF',
@@ -78,7 +78,7 @@ export default function CookieBanner() {
               </button>
               <button
                 onClick={() => dismiss('accepted')}
-                className="rounded-full px-5 py-2 text-sm transition hover:brightness-110"
+                className="rounded-full px-5 py-3 text-sm transition hover:brightness-110 w-full md:w-auto min-h-[44px]"
                 style={{
                   backgroundColor: '#2D5A27',
                   color: '#FFFFFF',
