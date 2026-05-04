@@ -243,7 +243,10 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
               transition={{ duration: 0.6 }}
             >
               {/* Main Image */}
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4 bg-gray-100">
+              <div
+                className="relative w-full overflow-hidden rounded-2xl mb-4 flex items-center justify-center min-h-[300px] max-h-[400px] md:min-h-[500px] md:max-h-[600px]"
+                style={{ backgroundColor: '#F5F2E8' }}
+              >
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={selectedImage}
@@ -251,32 +254,70 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="w-full h-full"
+                    className="w-full h-full flex items-center justify-center"
                   >
                     <Image
                       src={product.gallery[selectedImage]}
                       alt={product.name}
-                      fill
-                      className="object-cover"
+                      width={600}
+                      height={600}
+                      quality={95}
                       priority
+                      className="w-full h-full"
+                      style={{
+                        objectFit: 'contain',
+                        maxHeight: '580px',
+                        padding: '16px',
+                      }}
                     />
                   </motion.div>
                 </AnimatePresence>
               </div>
 
-              {/* Thumbnail Gallery */}
-              <div className="grid grid-cols-4 gap-3">
+              {/* Thumbnail Gallery — horizontal scroll row */}
+              <div
+                className="flex gap-2 md:gap-3 overflow-x-auto pb-2 -mx-1 px-1"
+                style={{
+                  scrollbarWidth: 'thin',
+                  WebkitOverflowScrolling: 'touch',
+                }}
+              >
                 {product.gallery.map((img, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${
-                      selectedImage === index
-                        ? 'border-habimint-primary shadow-md'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
+                    className="relative shrink-0 rounded-lg overflow-hidden transition-all flex items-center justify-center w-[65px] h-[80px] md:w-[80px] md:h-[100px]"
+                    style={{
+                      backgroundColor: '#F5F2E8',
+                      border:
+                        selectedImage === index
+                          ? '2px solid #2D5A27'
+                          : '2px solid #E5E0D5',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (selectedImage !== index) {
+                        (e.currentTarget as HTMLButtonElement).style.border = '2px solid #C8DEC8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (selectedImage !== index) {
+                        (e.currentTarget as HTMLButtonElement).style.border = '2px solid #E5E0D5';
+                      }
+                    }}
+                    aria-label={`View image ${index + 1}`}
                   >
-                    <Image src={img} alt={`${product.name} view ${index + 1}`} fill className="object-cover" />
+                    <Image
+                      src={img}
+                      alt={`${product.name} view ${index + 1}`}
+                      width={100}
+                      height={120}
+                      style={{
+                        objectFit: 'contain',
+                        width: '100%',
+                        height: '100%',
+                        padding: '4px',
+                      }}
+                    />
                   </button>
                 ))}
               </div>
