@@ -159,6 +159,166 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* SECTION 2.5 — A GIFT THAT GROWS WITH THEM */}
+        <section style={{ backgroundColor: '#F5F2E8', padding: '80px 24px' }}>
+          <div className="mx-auto" style={{ maxWidth: '900px' }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-center">
+              {/* LEFT — Image */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.7 }}
+                className="order-1 md:order-1"
+              >
+                <div className="relative w-full overflow-hidden rounded-2xl shadow-xl transform-none md:rotate-2">
+                  <img
+                    src="/images/fall-forward-hero.jpg"
+                    alt="Habimint journal as a meaningful gift"
+                    className="w-full h-auto block"
+                    style={{ objectFit: 'cover', display: 'block' }}
+                  />
+                </div>
+              </motion.div>
+
+              {/* RIGHT — Text */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="order-2 md:order-2"
+              >
+                {/* Small label */}
+                <p
+                  className="uppercase mb-4"
+                  style={{
+                    color: '#2D5A27',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: '12px',
+                    letterSpacing: '0.2em',
+                    fontWeight: 600,
+                  }}
+                >
+                  MORE THAN A JOURNAL
+                </p>
+
+                {/* Heading */}
+                <h2
+                  className="font-heading"
+                  style={{
+                    color: '#1A1A1A',
+                    fontSize: 'clamp(30px, 5vw, 40px)',
+                    lineHeight: 1.15,
+                    fontWeight: 700,
+                  }}
+                >
+                  The Most Meaningful Gift
+                  <br />
+                  You Can Give Someone.
+                </h2>
+
+                {/* Purple brushstroke accent */}
+                <svg
+                  width="120"
+                  height="10"
+                  viewBox="0 0 120 10"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="mt-4 mb-6"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M1 5 C 20 1, 40 9, 60 5 C 80 1, 100 9, 119 5"
+                    stroke="#C084C8"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                </svg>
+
+                {/* Body paragraphs */}
+                <div
+                  style={{
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: '16px',
+                    color: '#374151',
+                    lineHeight: 1.9,
+                  }}
+                >
+                  <p className="mb-5">
+                    What started as a personal tool for clarity became something
+                    far more powerful — a gift that changes how people see
+                    themselves and their potential. When Akhilesh first handed
+                    Fall Forward to his friends, he wasn&rsquo;t selling anything.
+                    He was sharing something he believed in deeply. Their
+                    response told him everything.
+                  </p>
+                  <p className="mb-5">
+                    That&rsquo;s the feeling we want every Habimint journal to
+                    create. Whether you&rsquo;re gifting it to a friend on their
+                    birthday, to a colleague on their last day, to your team at
+                    the start of a new year — a Habimint journal says something
+                    that no bouquet or gift card ever can. It says:{' '}
+                    <em>I believe in your growth. I see your potential. Fall Forward.</em>
+                  </p>
+                  <p>
+                    Every page, every prompt, every artwork inside was designed
+                    to be discovered slowly — like a letter from someone who
+                    genuinely wants to see you become who you&rsquo;re capable
+                    of being. That&rsquo;s not a product. That&rsquo;s a gift.
+                  </p>
+                </div>
+
+                {/* Divider */}
+                <div
+                  className="mt-8 mb-6"
+                  style={{ borderTop: '1px solid #E5E0D5' }}
+                />
+
+                {/* Gifting occasions */}
+                <div className="flex flex-wrap gap-4 md:gap-6">
+                  {[
+                    { icon: '🎂', label: 'Birthdays' },
+                    { icon: '🏆', label: 'Achievements' },
+                    { icon: '🎄', label: 'Festive Gifting' },
+                    { icon: '👔', label: 'Corporate' },
+                  ].map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center gap-2"
+                      style={{
+                        fontFamily: 'Poppins, sans-serif',
+                        fontSize: '13px',
+                        color: '#6B7280',
+                      }}
+                    >
+                      <span aria-hidden="true" style={{ fontSize: '18px', lineHeight: 1 }}>
+                        {item.icon}
+                      </span>
+                      <span>{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA button */}
+                <Link
+                  href="/b2b"
+                  className="inline-flex items-center justify-center mt-8 rounded-full text-white font-semibold transition hover:brightness-110"
+                  style={{
+                    backgroundColor: '#2D5A27',
+                    padding: '12px 32px',
+                    fontFamily: 'Poppins, sans-serif',
+                    fontSize: '15px',
+                    minHeight: '48px',
+                  }}
+                >
+                  Explore Gifting Options →
+                </Link>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
         {/* SECTION 3 - BRAND VALUES */}
         <section className="py-20 bg-habimint-bg">
           <div className="container mx-auto px-4">
