@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Download, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 
 export default function B2BPage() {
   const [formData, setFormData] = useState({
@@ -144,13 +144,14 @@ export default function B2BPage() {
                 programs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="inline-flex items-center gap-2 bg-white text-habimint-primary px-8 py-4 rounded-full font-semibold hover:bg-opacity-90 transition">
+                <button
+                  onClick={() => {
+                    document.getElementById('enquiry-form')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="inline-flex items-center gap-2 bg-white text-habimint-primary px-8 py-4 rounded-full font-semibold hover:bg-opacity-90 transition"
+                >
                   Get a Quote
                   <ArrowRight className="w-5 h-5" />
-                </button>
-                <button className="inline-flex items-center gap-2 border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-habimint-primary transition">
-                  <Download className="w-5 h-5" />
-                  Download Brochure
                 </button>
               </div>
             </motion.div>
@@ -288,7 +289,7 @@ export default function B2BPage() {
         </section>
 
         {/* SECTION 5 - ENQUIRY FORM */}
-        <section className="py-20 bg-habimint-primary">
+        <section id="enquiry-form" className="py-20 bg-habimint-primary">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
