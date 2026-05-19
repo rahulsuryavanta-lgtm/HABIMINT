@@ -496,7 +496,7 @@ function renderSectionContent(id: string): React.ReactNode {
 /* ─────────────────────────────────────────────────────── */
 /* Contact card (shared)                                     */
 /* ─────────────────────────────────────────────────────── */
-export function ContactCard() {
+function ContactCard() {
   return (
     <div
       className="rounded-2xl p-6 md:p-8"
