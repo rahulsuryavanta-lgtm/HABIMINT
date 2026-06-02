@@ -5,16 +5,19 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, X, LogIn } from 'lucide-react';
 import { useCart } from '@/store/cartStore';
-import { useAuth } from '@/store/authStore';
-import { NAVIGATION_LINKS } from '@/lib/constants';
+import { NAVIGATION_LINKS } from '@/lib/constants/constants';
+import { UserCookieData_Int } from '@/interface/ProfileInt';
+import { getUserInfo } from '@/utils/getToken';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { fetchTotalCartQty } from '@/stores/productCartSlice';
 
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { getItemCount } = useCart();
-  const { isAuthenticated } = useAuth();
   const itemCount = getItemCount();
 
   // Detect scroll to change navbar appearance
@@ -35,12 +38,47 @@ export const Navbar: React.FC = () => {
   const linkColor = isScrolled ? 'text-habimint-primary-light' : 'text-white';
   const hoverColor = 'hover:text-white';
 
+  const dispatch = useDispatch();
+  const [userData, setUserData] = useState<UserCookieData_Int>({} as any);
+  console.log('userData: ', userData);
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+  const router = useRouter();
+  const pathname = usePathname();
+  const [openNewsModal, setNewsModal] = useState(false);
+
+  // useEffect(() => {
+  //     let isHeaderElement = document.getElementById('header-parent');
+  //     if (isHeaderElement) {
+  //         const isHeaderBoundary = isHeaderElement.getBoundingClientRect();
+  //         setHeaderHt(isHeaderBoundary.height);
+  //     }
+
+  // }, [])
+
+  useEffect(() => {
+    const userInfo = getUserInfo();
+    if (userInfo?.id) {
+      dispatch(fetchTotalCartQty({}));
+      setUserData(userInfo);
+    }
+
+    let timeoutId: NodeJS.Timeout;
+    if (!localStorage.getItem("is_subscribed") && !userInfo?.id) {
+      timeoutId = setTimeout(() => {
+        setNewsModal(true);
+      }, 5000);
+    }
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, []);
+
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? 'bg-habimint-primary shadow-md' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-habimint-primary shadow-md' : 'bg-transparent'
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
@@ -49,12 +87,12 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0">
-              <Image 
-                src="/images/habimint-logo.svg" 
-                alt="Habimint" 
-                width={180} 
-                height={60} 
-                priority 
+              <Image
+                src="/images/habimint-logo.svg"
+                alt="Habimint"
+                width={180}
+                height={60}
+                priority
                 className="h-auto w-[140px] sm:w-[160px] md:w-[180px]"
               />
             </Link>
@@ -103,10 +141,15 @@ export const Navbar: React.FC = () => {
 
               {/* User Icon */}
               <Link
-                href={isAuthenticated ? '/account' : '/login'}
+                href={userData?.id ? '#' : '/login'}
                 className="p-2 hover:bg-white/10 rounded-full transition-colors"
               >
-                <User className={`w-5 h-5 ${linkColor} ${hoverColor} transition-colors`} />
+                {
+                  userData?.id ?
+                    <User className={`w-5 h-5 ${linkColor} ${hoverColor} transition-colors`} />
+                    :
+                    <LogIn className={`w-5 h-5 ${linkColor} ${hoverColor} transition-colors`} />
+                }
               </Link>
 
               {/* Mobile Menu Toggle */}

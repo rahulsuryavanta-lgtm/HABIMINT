@@ -10,7 +10,7 @@ interface AuthStore {
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
-  
+
   // Actions
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, name: string) => Promise<void>;
@@ -35,7 +35,7 @@ export const useAuth = create<AuthStore>()(persist(
         // const { token, user } = response.data!;
         // localStorage.setItem('authToken', token);
         // set({ user, token, isAuthenticated: true, isLoading: false });
-        
+
         // Temporary mock implementation
         const mockUser: User = {
           id: 'user-' + Date.now(),
@@ -46,16 +46,16 @@ export const useAuth = create<AuthStore>()(persist(
         };
         const mockToken = 'mock-token-' + Date.now();
         localStorage.setItem('authToken', mockToken);
-        set({ 
-          user: mockUser, 
-          token: mockToken, 
-          isAuthenticated: true, 
-          isLoading: false 
+        set({
+          user: mockUser,
+          token: mockToken,
+          isAuthenticated: true,
+          isLoading: false
         });
       } catch (error: any) {
-        set({ 
-          error: error.response?.data?.message || 'Login failed', 
-          isLoading: false 
+        set({
+          error: error.response?.data?.message || 'Login failed',
+          isLoading: false
         });
         throw error;
       }
@@ -69,7 +69,7 @@ export const useAuth = create<AuthStore>()(persist(
         // const { token, user } = response.data!;
         // localStorage.setItem('authToken', token);
         // set({ user, token, isAuthenticated: true, isLoading: false });
-        
+
         // Temporary mock implementation
         const mockUser: User = {
           id: 'user-' + Date.now(),
@@ -80,16 +80,16 @@ export const useAuth = create<AuthStore>()(persist(
         };
         const mockToken = 'mock-token-' + Date.now();
         localStorage.setItem('authToken', mockToken);
-        set({ 
-          user: mockUser, 
-          token: mockToken, 
-          isAuthenticated: true, 
-          isLoading: false 
+        set({
+          user: mockUser,
+          token: mockToken,
+          isAuthenticated: true,
+          isLoading: false
         });
       } catch (error: any) {
-        set({ 
-          error: error.response?.data?.message || 'Registration failed', 
-          isLoading: false 
+        set({
+          error: error.response?.data?.message || 'Registration failed',
+          isLoading: false
         });
         throw error;
       }
@@ -97,11 +97,11 @@ export const useAuth = create<AuthStore>()(persist(
 
     logout: () => {
       localStorage.removeItem('authToken');
-      set({ 
-        user: null, 
-        token: null, 
-        isAuthenticated: false, 
-        error: null 
+      set({
+        user: null,
+        token: null,
+        isAuthenticated: false,
+        error: null
       });
     },
 
@@ -117,7 +117,7 @@ export const useAuth = create<AuthStore>()(persist(
         // TODO: Replace with actual API call when backend is ready
         // const response = await getCurrentUser();
         // set({ user: response.data!, isAuthenticated: true, isLoading: false });
-        
+
         // Temporary: Keep the existing user if token exists
         const existingUser = get().user;
         if (existingUser) {
@@ -128,12 +128,12 @@ export const useAuth = create<AuthStore>()(persist(
         }
       } catch (error: any) {
         localStorage.removeItem('authToken');
-        set({ 
-          user: null, 
-          token: null, 
-          isAuthenticated: false, 
-          error: error.message, 
-          isLoading: false 
+        set({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+          error: error.message,
+          isLoading: false
         });
       }
     },

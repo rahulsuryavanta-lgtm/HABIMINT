@@ -6,6 +6,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Truck, Star, Package, Lock, Volume2, VolumeX } from 'lucide-react';
+import useToast from '@/utils/useToast';
+
 
 export default function HomePage() {
   // Hero slider state
@@ -13,6 +15,7 @@ export default function HomePage() {
 
   // Video mute state — must start muted so browsers allow autoplay
   const [isMuted, setIsMuted] = useState(true);
+  const { Error, Success } = useToast();
 
   // Touch swipe support for hero slider
   const touchStartX = useRef(0);
@@ -87,6 +90,7 @@ export default function HomePage() {
       setNewsletterStatus('error');
     }
   };
+
 
   return (
     <>
@@ -609,7 +613,7 @@ export default function HomePage() {
                       if (p && typeof p.catch === 'function') {
                         p.catch(() => {
                           el.muted = true;
-                          el.play().catch(() => {});
+                          el.play().catch(() => { });
                         });
                       }
                     }

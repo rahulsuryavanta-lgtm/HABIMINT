@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Instagram, Youtube, Mail } from 'lucide-react';
-import { FOOTER_LINKS, SITE_CONFIG } from '@/lib/constants';
+import { FOOTER_LINKS, SITE_CONFIG } from '@/lib/constants/constants';
 import { subscribeNewsletter } from '@/lib/api';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
@@ -24,10 +24,10 @@ export const Footer: React.FC = () => {
     try {
       // TODO: Replace with actual API call when backend is ready
       // await subscribeNewsletter(email);
-      
+
       // Temporary mock
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       setSubscribeStatus('success');
       setEmail('');
       // TODO: Show success toast notification
@@ -48,11 +48,11 @@ export const Footer: React.FC = () => {
           {/* Logo and Description */}
           <div className="lg:col-span-1 flex flex-col items-start">
             <Link href="/" className="inline-block mb-4" style={{ marginTop: 0, alignSelf: 'flex-start' }}>
-              <Image 
-                src="/images/habimint-logo.svg" 
-                alt="Habimint" 
-                width={200} 
-                height={70} 
+              <Image
+                src="/images/habimint-logo.svg"
+                alt="Habimint"
+                width={200}
+                height={70}
               />
             </Link>
             <p className="text-habimint-primary-light text-sm leading-relaxed">
