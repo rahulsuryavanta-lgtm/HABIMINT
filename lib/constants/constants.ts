@@ -1,6 +1,6 @@
 // Site constants and configuration for Habimint
 
-import { Testimonial } from './types';
+import { Testimonial } from '../types';
 
 export const SITE_CONFIG = {
   name: 'Habimint',

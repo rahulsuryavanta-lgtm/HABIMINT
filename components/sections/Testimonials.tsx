@@ -5,7 +5,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TestimonialCard } from '../ui/TestimonialCard';
 import { SectionHeading } from '../ui/SectionHeading';
-import { TESTIMONIALS } from '@/lib/constants';
+import { TESTIMONIALS } from '@/lib/constants/constants';
 
 export const Testimonials: React.FC = () => {
   return (

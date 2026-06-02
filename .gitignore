@@ -84,27 +84,27 @@ node_modules/@next/swc-linux-arm64-gnu/next-swc.linux-arm64-gnu.node
 public/videos/fall-forward-reel.mp4
 -e 
 # Environment and credential files
-.env
-.env.*
-*.env
+# .env
+# .env.*
+# *.env
 credentials.json
 *.pem
 *.key
 .credentials
 -e 
 # Environment and credential files
-.env
-.env.*
-*.env
+# .env
+# .env.*
+# *.env
 credentials.json
 *.pem
 *.key
 .credentials
 -e 
 # Environment and credential files
-.env
-.env.*
-*.env
+# .env
+# .env.*
+# *.env
 credentials.json
 *.pem
 *.key
