@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchHomePageApi: any = createAsyncThunk<any, any>(
   "homePageStore/fetchHomePageApi",
-  async ({}, { getState, dispatch }) => {
+  async ({ }, { getState, dispatch }) => {
     dispatch(handleHomePageLoader(true));
     try {
       const response = await callApi<any>({
@@ -42,6 +42,7 @@ export const homePageSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchHomePageApi.fulfilled, (state, action) => {
       if (action.payload?.response?.status_code === 200) {
+        console.log('action.payload?.response: ', action.payload?.response?.data);
         state.homePageData = action.payload?.response?.data || [];
         state.total_records = action.payload?.response?.data?.length || 0;
       }

@@ -6,7 +6,8 @@ import CookieBanner from '@/components/ui/CookieBanner'
 import { Toaster } from "react-hot-toast";
 import { AppStore } from '@/stores'
 import { Provider } from 'react-redux'
-import Header from '@/components/layout/Header'
+import { Suspense } from 'react'
+import BouncingPencilLoader from '@/components/loaders/BouncingPencilLoader'
 
 
 
@@ -28,12 +29,13 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <Provider store={AppStore}>
-          {/* <Header /> */}
-          <Navbar />
-          <main className="min-h-screen overflow-x-hidden w-full">
-            {children}
-          </main>
-          <Footer />
+          <Suspense fallback={<BouncingPencilLoader />}>
+            <Navbar />
+            <main className="min-h-screen overflow-x-hidden w-full">
+              {children}
+            </main>
+            <Footer />
+          </Suspense>
           <CookieBanner />
           <Toaster />
         </Provider>
