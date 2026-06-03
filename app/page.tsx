@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Truck, Star, Package, Lock, Volume2, VolumeX } from 'lucide-react';
 import useToast from '@/utils/useToast';
+import { useDispatch } from 'react-redux';
+import { fetchHomePageApi } from '@/stores/homePageSlice';
 
 
 export default function HomePage() {
@@ -90,6 +92,15 @@ export default function HomePage() {
       setNewsletterStatus('error');
     }
   };
+
+  const dispatch = useDispatch();
+  const callDashboardApi = async () => {
+    await dispatch(fetchHomePageApi({}));
+  };
+
+  useEffect(() => {
+    callDashboardApi();
+  }, []);
 
 
   return (

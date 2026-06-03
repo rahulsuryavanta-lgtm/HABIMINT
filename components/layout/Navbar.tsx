@@ -40,7 +40,6 @@ export const Navbar: React.FC = () => {
 
   const dispatch = useDispatch();
   const [userData, setUserData] = useState<UserCookieData_Int>({} as any);
-  console.log('userData: ', userData);
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const router = useRouter();
