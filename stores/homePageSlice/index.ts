@@ -1,3 +1,4 @@
+import { DashboardApi_ResInt } from "@/interface/ProductInterface";
 import { callApi } from "@/lib/apiBase/api";
 import { HOMEPAGE_API, URLGETMETHOD } from "@/lib/constants/ApiConstants";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
@@ -20,7 +21,7 @@ export const fetchHomePageApi: any = createAsyncThunk<any, any>(
 );
 
 interface HomePageState {
-  homePageData: any;
+  homePageData: DashboardApi_ResInt;
   total_records: number;
   homePageLoading: boolean;
 }

@@ -162,3 +162,63 @@ export interface OrderProductImage_Int {
     is_main_image: boolean
     deletedAt: string
 }
+
+
+
+
+
+
+
+
+
+
+
+// ----------- api 
+export interface DashboardApi_ResInt {
+    products: ProductList_Int[]
+    pagination: ProductList_Pagination_Int
+}
+
+export interface ProductList_Int {
+    id: number
+    createdAt: string
+    updatedAt: string
+    name: string
+    description: string
+    price: string
+    product_code: string
+    product_slug: string
+    discount_price: string
+    created_by: string
+    updated_by: string
+    status: number
+    inside_content: string
+    product_features: string
+    product_detail: string
+    deletedAt: string
+    cart_qty: any
+    averageRating: string
+    totalReview: number
+    ProductImages: ProductImage_Int[]
+    Cart: ProductList_Cart_Int
+    productReviews: any[]
+}
+
+
+export interface ProductList_Pagination_Int {
+    totalRecords: number
+    currentPage: number
+    totalPages: number
+    limit: number
+}
+
+
+export interface ProductList_Cart_Int {
+    id: number
+    createdAt: string
+    updatedAt: string
+    customer_id: number
+    product_id: number
+    qty: number
+    deletedAt: string
+}

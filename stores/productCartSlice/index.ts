@@ -37,7 +37,7 @@ export const fetchProductDetail: any = createAsyncThunk<any, any>(
 
 export const fetchCartData: any = createAsyncThunk<any, any>(
   "productCartStore/fetchCartData",
-  async ({}, { getState, dispatch }) => {
+  async ({ }, { getState, dispatch }) => {
     dispatch(handleCartLoader(true));
     try {
       const response = await callApi<any>({
@@ -55,6 +55,7 @@ export const fetchCartData: any = createAsyncThunk<any, any>(
 export const fetchAddToCart: any = createAsyncThunk<any, any>(
   "productCartStore/fetchAddToCart",
   async ({ params }, { getState, dispatch }) => {
+    console.log('params: ', params);
     dispatch(handleCartLoader(true));
     try {
       const response = await callApi<any>({
@@ -108,7 +109,7 @@ export const fetchDeleteCartItem: any = createAsyncThunk<any, any>(
 
 export const fetchTotalCartQty: any = createAsyncThunk<any, any>(
   "productCartStore/fetchTotalCartQty",
-  async ({}, { getState, dispatch }) => {
+  async ({ }, { getState, dispatch }) => {
     try {
       const response = await callApi<any>({
         url: CART_API.TOTAL_CART_QTY,
@@ -178,7 +179,7 @@ export const fetchUpdatePaymentStatus: any = createAsyncThunk<any, any>(
 
 export const fetchOrderHistory: any = createAsyncThunk<any, any>(
   "productCartStore/fetchOrderHistory",
-  async ({}, { getState, dispatch }) => {
+  async ({ }, { getState, dispatch }) => {
     dispatch(handleOrderHistoryLoader(true));
     try {
       const response = await callApi<any>({

@@ -11,14 +11,16 @@ import { NAVIGATION_LINKS } from '@/lib/constants/constants';
 import { UserCookieData_Int } from '@/interface/ProfileInt';
 import { getUserInfo } from '@/utils/getToken';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchTotalCartQty } from '@/stores/productCartSlice';
+import { RootState } from '@/stores';
 
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { getItemCount } = useCart();
-  const itemCount = getItemCount();
+  const { cart_total, cartDrawerOpen } = useSelector(
+    (state: RootState) => state.productCartSlice
+  );
 
   // Detect scroll to change navbar appearance
   useEffect(() => {
@@ -126,14 +128,14 @@ export const Navbar: React.FC = () => {
                 className="relative p-2 hover:bg-white/10 rounded-full transition-colors"
               >
                 <ShoppingCart className={`w-5 h-5 ${linkColor} ${hoverColor} transition-colors`} />
-                {itemCount > 0 && (
+                {cart_total?.cart_qty > 0 && (
                   <motion.span
                     className="absolute -top-1 -right-1 bg-habimint-accent text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: 'spring', stiffness: 500 }}
                   >
-                    {itemCount}
+                    {cart_total?.cart_qty}
                   </motion.span>
                 )}
               </Link>

@@ -9,6 +9,9 @@ import { Check, Truck, Star, Package, Lock, Volume2, VolumeX } from 'lucide-reac
 import useToast from '@/utils/useToast';
 import { useDispatch } from 'react-redux';
 import { fetchHomePageApi } from '@/stores/homePageSlice';
+import JournalsSection from '@/components/homePage/JournalsSection';
+import { getUserInfo } from '@/utils/getToken';
+import { useRouter } from 'next/navigation';
 
 
 export default function HomePage() {
@@ -276,132 +279,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════ */}
       {/* SECTION 3 — FEATURED PRODUCTS */}
       {/* ═══════════════════════════════════════════════════════════ */}
-      <section className="bg-habimint-bg py-20">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-habimint-text mb-4">Our Journals</h2>
-            <p className="text-habimint-text-light text-lg">
-              Crafted for those who choose to grow intentionally
-            </p>
-            {/* Purple brushstroke accent */}
-            <svg width="200" height="8" viewBox="0 0 200 8" className="mx-auto mt-4">
-              <path d="M10,5 C40,1 80,7 120,4 C140,2 175,6 190,4" stroke="#C084C8" strokeWidth="3.5" fill="none" strokeLinecap="round" />
-            </svg>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {/* PRODUCT CARD 1 — FALL FORWARD */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className="relative aspect-[4/5] rounded-t-2xl overflow-hidden group">
-                <Image
-                  src="/images/fall-forward-hero.jpg"
-                  alt="Fall Forward Journal"
-                  fill
-                  quality={90}
-                  className="object-cover group-hover:scale-103 transition-transform duration-500"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-habimint-primary text-white text-xs px-3 py-1 rounded-full font-medium">
-                    BESTSELLER
-                  </span>
-                </div>
-                <div className="absolute top-4 right-4">
-                  <span className="bg-habimint-accent text-white text-xs px-3 py-1 rounded-full font-medium">
-                    42% OFF
-                  </span>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="font-heading text-2xl font-bold text-habimint-text mb-2">Fall Forward</h3>
-                <p className="text-habimint-text-light text-sm mb-3">Your 4-Month Transformation Journey</p>
-                <p className="text-habimint-text-light text-sm mb-4 leading-relaxed">
-                  316 pages of structured daily reflection, habit tracking, monthly planning and 4 exclusive artworks by Persian & Indian artists.
-                </p>
-                <div className="flex items-baseline gap-3 mb-4">
-                  <span className="text-habimint-primary text-2xl font-bold">₹749</span>
-                  <span className="text-gray-400 line-through text-base">₹1,299</span>
-                  <span className="bg-habimint-primary-light text-habimint-primary text-xs px-2 py-1 rounded">
-                    Save ₹550
-                  </span>
-                </div>
-                <div className="flex gap-3">
-                  <button className="flex-1 bg-habimint-primary text-white py-3 rounded-full font-semibold hover:bg-opacity-90 transition">
-                    Add to Cart
-                  </button>
-                  <Link href="/products/fall-forward" className="flex-1">
-                    <button className="w-full border-2 border-habimint-primary text-habimint-primary py-3 rounded-full font-semibold hover:bg-habimint-primary hover:text-white transition">
-                      View Details
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* PRODUCT CARD 2 — VERSION 2.0 */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className="relative aspect-[4/5] rounded-t-2xl overflow-hidden group">
-                <Image
-                  src="/images/version2-hero.jpg"
-                  alt="Version 2.0 Journal"
-                  fill
-                  quality={90}
-                  className="object-cover group-hover:scale-103 transition-transform duration-500"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-habimint-accent text-white text-xs px-3 py-1 rounded-full font-medium">NEW</span>
-                </div>
-                <div className="absolute top-4 right-4">
-                  <span className="bg-habimint-primary text-white text-xs px-3 py-1 rounded-full font-medium">
-                    58% OFF
-                  </span>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="font-heading text-2xl font-bold text-habimint-text mb-2">Version 2.0</h3>
-                <p className="text-habimint-text-light text-sm mb-3">Your 21-Day Guide to Becoming Unstoppable</p>
-                <p className="text-habimint-text-light text-sm mb-4 leading-relaxed">
-                  21 days of intense habit tracking across 6 life dimensions — Spiritual, Mental, Physical, Economic, Emotional, General.
-                </p>
-                <div className="flex items-baseline gap-3 mb-4">
-                  <span className="text-habimint-primary text-2xl font-bold">₹249</span>
-                  <span className="text-gray-400 line-through text-base">₹599</span>
-                  <span className="bg-habimint-primary-light text-habimint-primary text-xs px-2 py-1 rounded">
-                    Save ₹350
-                  </span>
-                </div>
-                <div className="flex gap-3">
-                  <button className="flex-1 bg-habimint-primary text-white py-3 rounded-full font-semibold hover:bg-opacity-90 transition">
-                    Add to Cart
-                  </button>
-                  <Link href="/products/version-2-0" className="flex-1">
-                    <button className="w-full border-2 border-habimint-primary text-habimint-primary py-3 rounded-full font-semibold hover:bg-habimint-primary hover:text-white transition">
-                      View Details
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <JournalsSection />
 
       {/* ═══════════════════════════════════════════════════════════ */}
       {/* SECTION 3.5 — WHY FALL FORWARD */}
