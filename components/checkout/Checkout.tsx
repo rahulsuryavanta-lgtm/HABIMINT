@@ -359,7 +359,7 @@ const Checkout: React.FC<{
             );
         } catch (error) {
         } finally {
-            setStep(3)
+            // setStep(3)
             setLoading(false);
         }
     };
