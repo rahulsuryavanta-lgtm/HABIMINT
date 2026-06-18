@@ -1,177 +1,77 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Star, Minus, Plus, Share2, ShoppingCart, Truck, Lock, RotateCcw, Copy } from 'lucide-react';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
+import { DetailPage_Products, DetailPage_Testimonials } from '@/public/data/product_store';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/stores';
+import { fetchAddToCart, fetchDeleteCartItem, fetchProductDetail, fetchUpdateCart, handleDetailLoader } from '@/stores/productCartSlice';
+import { getUserInfo } from '@/utils/getToken';
+import { CartProduct_Int } from '@/interface/ProductInterface';
 
-// Static product data
-const PRODUCTS = {
-  'fall-forward': {
-    id: 'fall-forward',
-    slug: 'fall-forward',
-    name: 'Fall Forward',
-    tagline: 'Your 4-Month Transformation Journey',
-    price: 749,
-    originalPrice: 1299,
-    badge: 'BESTSELLER',
-    badgeColor: 'bg-habimint-primary',
-    mainImage: '/images/fall-forward-hero.jpg',
-    gallery: [
-      '/images/fall-forward-hero.jpg',
-      '/images/fall-forward-cover.jpg',
-      '/images/fall-forward-open.jpg',
-      '/images/fall-forward-inside.jpg',
-      '/images/fall-forward-desk.jpg',
-    ],
-    description: "Fall Forward is not just a journal — it's a complete personal growth system. 316 pages meticulously designed to guide you through a 4-month transformation journey. Every page was crafted with intention — from your morning affirmation to your evening reflection. This journal doesn't just give you blank pages, it guides you with thoughtful prompts, habit trackers, and beautiful artwork that inspires growth at every turn.",
-    features: [
-      '316 premium pages',
-      'Morning & evening daily pages',
-      'Weekly reflection spreads',
-      'Monthly planning & budget tracking',
-      'Vision & goal setting pages',
-      '4 exclusive artworks (Persian & Indian artists)',
-      'Letter to Future Self (tearable page)',
-      '157gsm cover, 80gsm inner pages',
-      'Matt laminated case-bound cover',
-      'Size: 22.5 × 16.5 × 2.5 cm',
-    ],
-    specifications: {
-      'Pages': '316 pages',
-      'Duration': '4 months (120 days)',
-      'Cover': '157gsm matt laminated case-bound',
-      'Inner Pages': '80gsm premium quality',
-      'Binding': 'Case-bound (hardcover)',
-      'Dimensions': '22.5 × 16.5 × 2.5 cm',
-      'Weight': '650g',
-      'Color': 'Deep Black',
-      'Special Features': 'Letter to Future Self (tearable), 4 exclusive artworks',
-    },
-    insidePages: [
-      { image: '/images/fall-forward-art-1.jpg', title: 'Before the Surface', subtitle: 'Month 1 Artwork' },
-      { image: '/images/fall-forward-art-2.jpg', title: 'All That I Am', subtitle: 'Month 3 Artwork — By Vignesh' },
-      { image: '/images/fall-forward-inside.jpg', title: 'Daily Pages', subtitle: 'Morning + Evening Reflection' },
-      { image: '/images/fall-forward-open.jpg', title: 'Monthly Planning', subtitle: 'Budget + Goals Tracker' },
-    ],
-    rating: 4.8,
-    reviewCount: 127,
-  },
-  'version-2-0': {
-    id: 'version-2-0',
-    slug: 'version-2-0',
-    name: 'Version 2.0',
-    tagline: 'Your 21-Day Guide to Becoming Unstoppable',
-    price: 249,
-    originalPrice: 599,
-    badge: 'NEW',
-    badgeColor: 'bg-habimint-accent',
-    mainImage: '/images/version2-hero.jpg',
-    gallery: [
-      '/images/version2-hero.jpg',
-      '/images/version2-cover.jpg',
-      '/images/version2-open.jpg',
-      '/images/version2-flat.jpg',
-    ],
-    description: "Version 2.0 is your 21-day intensive habit transformation guide. Track 6 dimensions of growth every single day — Spiritual, Mental, Physical, Economic, Emotional, General. This isn't your typical habit tracker. It's a complete system designed to help you become the best version of yourself in just 3 weeks. With daily scoring, bad habit resistance tracking, and powerful quotes, Version 2.0 pushes you to take massive action.",
-    features: [
-      '21-day structured program',
-      '6 life dimensions tracked daily',
-      'Daily scoring system (±6)',
-      'Bad habit resistance tracker',
-      'Weekly reflection pages',
-      '21 powerful daily quotes',
-      'Spiral bound for flat writing',
-      'Premium quality paper',
-    ],
-    specifications: {
-      'Duration': '21 days',
-      'Dimensions Tracked': '6 (Spiritual, Mental, Physical, Economic, Emotional, General)',
-      'Binding': 'Spiral bound',
-      'Paper Quality': 'Premium 80gsm',
-      'Size': '21 × 15 cm',
-      'Weight': '200g',
-      'Color': 'Deep Forest Green',
-      'Special Features': 'Daily quotes, Bad habit tracker, Scoring system',
-    },
-    insidePages: [
-      { image: '/images/version2-open.jpg', title: 'Daily Tracking Page', subtitle: '6 Dimensions Scorecard' },
-      { image: '/images/version2-flat.jpg', title: 'Spiral Bound Design', subtitle: 'Lays flat for easy writing' },
-    ],
-    rating: 4.9,
-    reviewCount: 83,
-  },
-};
-
-const TESTIMONIALS = [
-  {
-    name: 'Tanmay Kumar Sani',
-    role: 'Photographer',
-    rating: 5,
-    text: "Fall Forward completely changed how I start my mornings. The daily reflection pages pushed me to be more intentional about my goals. I have tried many journals — this one actually works.",
-  },
-  {
-    name: 'Priya Sharma',
-    role: 'Marketing Manager, Mumbai',
-    rating: 5,
-    text: "I have tried 6 different journals. Nothing comes close to Fall Forward. The artwork inside is stunning and the structure actually guides you — it does not just give you blank pages.",
-  },
-  {
-    name: 'Arjun Mehta',
-    role: 'Entrepreneur',
-    rating: 5,
-    text: 'Version 2.0 gave me the kick I needed. 21 days of tracking every dimension of my life made me realize where I was slacking. Game changer.',
-  },
-  {
-    name: 'Neha Patel',
-    role: 'Yoga Instructor',
-    rating: 4,
-    text: 'Beautiful design, thoughtful prompts, and high-quality paper. The habit tracking system is simple but effective. Highly recommend for anyone serious about growth.',
-  },
-  {
-    name: 'Rohan Desai',
-    role: 'Software Engineer',
-    rating: 5,
-    text: 'The best investment I made this year. Fall Forward helped me build consistency and track progress like never before. The monthly reflections are incredibly powerful.',
-  },
-];
 
 export default function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const product = PRODUCTS[params.slug as keyof typeof PRODUCTS];
+  const tempProduct = useMemo(
+    () => DetailPage_Products[
+      params.slug as keyof typeof DetailPage_Products
+    ],
+    [params.slug]
+  );
+  const [product, setProduct] = useState(tempProduct)
+  const userInfo = getUserInfo();
 
   if (!product) {
     notFound();
   }
 
+
+  const dispatch = useDispatch();
+  const router = useRouter()
+
+  const { productDetail, productDetailLoading, cartLoading } = useSelector(
+    (state: RootState) => state.productCartSlice
+  );
+
+  useEffect(() => {
+    if (userInfo?.id) {
+      let paramSlug = {
+        slug: tempProduct.slug,
+        isPageApi: true,
+      };
+      dispatch(fetchProductDetail({ paramSlug })).then((res) => {
+        if (res?.payload?.response?.status_code === 200) {
+          let prdData = res?.payload?.response?.data
+          setProduct((prev) => {
+            const updated = {
+              ...prev,
+              cart_id: prdData.cart_id,
+              cart_qty: prdData.cart_qty,
+            };
+            return updated;
+          });
+        }
+
+      });
+    }
+  }, []);
+
+  const [isLoading, setIsLoading] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<'about' | 'inside' | 'specs' | 'reviews'>('about');
   const [addingToCart, setAddingToCart] = useState(false);
-  const [cartSuccess, setCartSuccess] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
 
   const savings = product.originalPrice - product.price;
   const discountPercent = Math.round((savings / product.originalPrice) * 100);
 
-  const handleAddToCart = async () => {
-    setAddingToCart(true);
-    try {
-      // TODO: Connect to actual API
-      await fetch('/api/cart', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId: product.id, quantity }),
-      });
-      setAddingToCart(false);
-      setCartSuccess(true);
-      setTimeout(() => setCartSuccess(false), 2000);
-    } catch (error) {
-      console.error('Error adding to cart:', error);
-      setAddingToCart(false);
-    }
-  };
+  useEffect(() => {
+
+  }, [])
+
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -185,7 +85,116 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
     window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
   };
 
-  const otherProduct = Object.values(PRODUCTS).find((p) => p.slug !== product.slug);
+  const otherProduct = Object.values(DetailPage_Products).find((p) => p.slug !== product.slug);
+
+
+  const handleCart = async (type: "ADD" | "REMOVE" | "NEW_ADD") => {
+
+    let reloadPrd = DetailPage_Products[
+      params.slug as keyof typeof DetailPage_Products
+    ]
+
+    if (!userInfo?.id) {
+      router.push("/login");
+    } else {
+      if (type !== "REMOVE") {
+        setAddingToCart(true);
+      }
+
+      setIsLoading(true)
+      if (type == "NEW_ADD") {
+        let params = {
+          product_id: product?.id,
+          qty: 1,
+        };
+
+        await dispatch(fetchAddToCart({ params })).then((res: any) => {
+          if (res?.payload?.response?.status_code == 200) {
+            let itemData: CartProduct_Int[] = res?.payload?.response?.data?.cart_products
+            if (itemData?.length > 0) {
+              const cartProduct = itemData.find(
+                (item) => item.id === product.id
+              );
+              if (cartProduct?.id) {
+                setProduct((prev) => {
+                  const updated = {
+                    ...prev,
+                    cart_id: cartProduct?.cart_id,
+                    cart_qty: cartProduct?.cart_qty,
+                  };
+                  return updated;
+                })
+              }
+            }
+
+          }
+          setIsLoading(false)
+        });
+
+
+      } else if (+product?.cart_qty === 1 && type == "REMOVE") {
+        let params = {
+          product_id: product?.id,
+          cart_id: product?.cart_id,
+        };
+        await dispatch(fetchDeleteCartItem({ params })).then((res: any) => {
+          if (res?.payload?.response?.status_code == 200) {
+            let itemData: CartProduct_Int[] = res?.payload?.response?.data?.cart_products
+            const cartProduct = itemData.find(
+              (item) => item.id === product.id
+            );
+
+            setProduct((prev) => {
+              const updated = {
+                ...prev,
+                cart_id: 0,
+                cart_qty: 0,
+              };
+              return updated;
+
+            })
+
+          }
+
+          setIsLoading(false)
+
+        });
+
+      } else if (+product?.cart_qty > 0) {
+        let params = {
+          product_id: product?.id,
+          cart_id: product?.cart_id,
+          qty: type === "ADD" ? +product?.cart_qty + 1 : +product?.cart_qty - 1,
+        };
+        await dispatch(fetchUpdateCart({ params })).then((res: any) => {
+          if (res?.payload?.response?.status_code == 200) {
+            let itemData: CartProduct_Int[] = res?.payload?.response?.data?.cart_products
+            if (itemData?.length > 0) {
+              const cartProduct = itemData.find(
+                (item) => item.id === product.id
+              );
+              if (cartProduct?.id) {
+                setProduct((prev) => {
+                  const updated = {
+                    ...prev,
+                    cart_id: cartProduct?.cart_id,
+                    cart_qty: cartProduct?.cart_qty,
+                  };
+                  return updated;
+                })
+              }
+            }
+          }
+          setIsLoading(false)
+        });
+
+      }
+
+      if (type !== "REMOVE") {
+        setAddingToCart(false);
+      }
+    }
+  };
 
   return (
     <>
@@ -349,9 +358,8 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-4 h-4 ${
-                        i < Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
-                      }`}
+                      className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
+                        }`}
                     />
                   ))}
                 </div>
@@ -384,17 +392,25 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                 <label className="block text-sm font-medium text-habimint-text mb-2">Quantity</label>
                 <div className="flex items-center gap-4 border border-gray-300 rounded-lg w-fit">
                   <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-3 hover:bg-gray-50 transition"
-                    disabled={quantity <= 1}
+                    onClick={() =>
+                      handleCart("REMOVE")
+                    }
+                    className={`p-3 hover:bg-gray-50 transition ${product?.cart_qty == 0 ? "cursor-default" : "cursor-pointer"}`}
+                    disabled={product?.cart_qty <= 0}
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="text-lg font-semibold w-8 text-center">{quantity}</span>
+                  <span className="text-lg font-semibold w-8 text-center">{product?.cart_qty || 0}</span>
                   <button
-                    onClick={() => setQuantity(Math.min(10, quantity + 1))}
+                    onClick={() => {
+                      if (product?.cart_qty == 0) {
+                        handleCart("NEW_ADD")
+                      } else {
+                        handleCart("ADD")
+                      }
+                    }
+                    }
                     className="p-3 hover:bg-gray-50 transition"
-                    disabled={quantity >= 10}
                   >
                     <Plus className="w-4 h-4" />
                   </button>
@@ -403,20 +419,18 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
 
               {/* Add to Cart Button */}
               <button
-                onClick={handleAddToCart}
-                disabled={addingToCart || cartSuccess}
-                className={`w-full py-4 rounded-full font-semibold text-lg mb-3 transition flex items-center justify-center gap-2 ${
-                  cartSuccess
-                    ? 'bg-green-600 text-white'
-                    : 'bg-habimint-primary text-white hover:bg-opacity-90'
-                }`}
+                onClick={() => {
+                  if (product?.cart_qty == 0) {
+                    handleCart("NEW_ADD")
+                  } else {
+                    handleCart("ADD")
+                  }
+                }
+                }
+                disabled={addingToCart}
+                className={`w-full py-4 rounded-full font-semibold text-lg mb-3 transition flex items-center justify-center gap-2 bg-habimint-primary text-white hover:bg-opacity-90`}
               >
-                {cartSuccess ? (
-                  <>
-                    <Check className="w-5 h-5" />
-                    Added to Cart
-                  </>
-                ) : addingToCart ? (
+                {addingToCart ? (
                   'Adding...'
                 ) : (
                   <>
@@ -427,11 +441,11 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
               </button>
 
               {/* Buy Now Button */}
-              <Link href="/checkout">
+              {/* <Link href="/checkout">
                 <button className="w-full py-4 rounded-full font-semibold text-lg border-2 border-habimint-primary text-habimint-primary hover:bg-habimint-primary hover:text-white transition">
                   Buy Now
                 </button>
-              </Link>
+              </Link> */}
 
               {/* Trust Badges */}
               <div className="flex flex-wrap items-center gap-4 mt-6 pt-6 border-t border-gray-200">
@@ -488,51 +502,47 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
               </div>
             </motion.div>
           </div>
-        </section>
+        </section >
 
         {/* MIDDLE SECTION - Tabs */}
-        <section className="container mx-auto px-4 mt-20">
+        < section className="container mx-auto px-4 mt-20" >
           <div className="max-w-7xl mx-auto">
             {/* Tab Headers */}
             <div className="border-b border-gray-200 mb-8">
               <div className="flex gap-8 overflow-x-auto">
                 <button
                   onClick={() => setActiveTab('about')}
-                  className={`pb-4 border-b-2 transition-colors whitespace-nowrap ${
-                    activeTab === 'about'
-                      ? 'border-habimint-primary text-habimint-primary font-semibold'
-                      : 'border-transparent text-habimint-text-light hover:text-habimint-text'
-                  }`}
+                  className={`pb-4 border-b-2 transition-colors whitespace-nowrap ${activeTab === 'about'
+                    ? 'border-habimint-primary text-habimint-primary font-semibold'
+                    : 'border-transparent text-habimint-text-light hover:text-habimint-text'
+                    }`}
                 >
                   About
                 </button>
                 <button
                   onClick={() => setActiveTab('inside')}
-                  className={`pb-4 border-b-2 transition-colors whitespace-nowrap ${
-                    activeTab === 'inside'
-                      ? 'border-habimint-primary text-habimint-primary font-semibold'
-                      : 'border-transparent text-habimint-text-light hover:text-habimint-text'
-                  }`}
+                  className={`pb-4 border-b-2 transition-colors whitespace-nowrap ${activeTab === 'inside'
+                    ? 'border-habimint-primary text-habimint-primary font-semibold'
+                    : 'border-transparent text-habimint-text-light hover:text-habimint-text'
+                    }`}
                 >
                   Inside the Journal
                 </button>
                 <button
                   onClick={() => setActiveTab('specs')}
-                  className={`pb-4 border-b-2 transition-colors whitespace-nowrap ${
-                    activeTab === 'specs'
-                      ? 'border-habimint-primary text-habimint-primary font-semibold'
-                      : 'border-transparent text-habimint-text-light hover:text-habimint-text'
-                  }`}
+                  className={`pb-4 border-b-2 transition-colors whitespace-nowrap ${activeTab === 'specs'
+                    ? 'border-habimint-primary text-habimint-primary font-semibold'
+                    : 'border-transparent text-habimint-text-light hover:text-habimint-text'
+                    }`}
                 >
                   Specifications
                 </button>
                 <button
                   onClick={() => setActiveTab('reviews')}
-                  className={`pb-4 border-b-2 transition-colors whitespace-nowrap ${
-                    activeTab === 'reviews'
-                      ? 'border-habimint-primary text-habimint-primary font-semibold'
-                      : 'border-transparent text-habimint-text-light hover:text-habimint-text'
-                  }`}
+                  className={`pb-4 border-b-2 transition-colors whitespace-nowrap ${activeTab === 'reviews'
+                    ? 'border-habimint-primary text-habimint-primary font-semibold'
+                    : 'border-transparent text-habimint-text-light hover:text-habimint-text'
+                    }`}
                 >
                   Reviews ({product.reviewCount})
                 </button>
@@ -566,9 +576,9 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {product.insidePages.map((page, index) => (
                       <div key={index} className="group">
-                        <div 
-                          className="relative rounded-2xl mb-3 bg-habimint-bg" 
-                          style={{ 
+                        <div
+                          className="relative rounded-2xl mb-3 bg-habimint-bg"
+                          style={{
                             minHeight: '280px',
                             aspectRatio: '4/3',
                           }}
@@ -729,9 +739,8 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`w-5 h-5 ${
-                                i < Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
-                              }`}
+                              className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
+                                }`}
                             />
                           ))}
                         </div>
@@ -758,7 +767,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
 
                   {/* Testimonials */}
                   <div className="space-y-6">
-                    {TESTIMONIALS.map((testimonial, index) => (
+                    {DetailPage_Testimonials.map((testimonial, index) => (
                       <div key={index} className="border border-gray-200 rounded-2xl p-6">
                         <div className="flex items-start gap-4">
                           <div className="w-12 h-12 rounded-full bg-habimint-primary text-white flex items-center justify-center font-semibold flex-shrink-0">
@@ -784,43 +793,45 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
               )}
             </AnimatePresence>
           </div>
-        </section>
+        </section >
 
         {/* BOTTOM SECTION - You Might Also Like */}
-        {otherProduct && (
-          <section className="container mx-auto px-4 mt-20">
-            <div className="max-w-7xl mx-auto">
-              <h2 className="font-heading text-3xl font-bold text-habimint-text mb-8">You Might Also Like</h2>
-              <div className="max-w-md">
-                <Link href={`/products/${otherProduct.slug}`}>
-                  <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div className="relative aspect-[4/5] rounded-t-2xl overflow-hidden">
-                      <Image src={otherProduct.mainImage} alt={otherProduct.name} fill className="object-cover" />
-                      <div className="absolute top-4 left-4">
-                        <span
-                          className={`${otherProduct.badgeColor} text-white text-xs px-3 py-1 rounded-full font-medium`}
-                        >
-                          {otherProduct.badge}
-                        </span>
+        {
+          otherProduct && (
+            <section className="container mx-auto px-4 mt-20">
+              <div className="max-w-7xl mx-auto">
+                <h2 className="font-heading text-3xl font-bold text-habimint-text mb-8">You Might Also Like</h2>
+                <div className="max-w-md">
+                  <Link href={`/products/${otherProduct.slug}`}>
+                    <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                      <div className="relative aspect-[4/5] rounded-t-2xl overflow-hidden">
+                        <Image src={otherProduct.mainImage} alt={otherProduct.name} fill className="object-cover" />
+                        <div className="absolute top-4 left-4">
+                          <span
+                            className={`${otherProduct.badgeColor} text-white text-xs px-3 py-1 rounded-full font-medium`}
+                          >
+                            {otherProduct.badge}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <h3 className="font-heading text-2xl font-bold text-habimint-text mb-2">
+                          {otherProduct.name}
+                        </h3>
+                        <p className="text-habimint-text-light text-sm mb-4">{otherProduct.tagline}</p>
+                        <div className="flex items-baseline gap-3">
+                          <span className="text-habimint-primary text-2xl font-bold">₹{otherProduct.price}</span>
+                          <span className="text-gray-400 line-through text-base">₹{otherProduct.originalPrice}</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="p-6">
-                      <h3 className="font-heading text-2xl font-bold text-habimint-text mb-2">
-                        {otherProduct.name}
-                      </h3>
-                      <p className="text-habimint-text-light text-sm mb-4">{otherProduct.tagline}</p>
-                      <div className="flex items-baseline gap-3">
-                        <span className="text-habimint-primary text-2xl font-bold">₹{otherProduct.price}</span>
-                        <span className="text-gray-400 line-through text-base">₹{otherProduct.originalPrice}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </section>
-        )}
-      </main>
+            </section>
+          )
+        }
+      </main >
     </>
   );
 }

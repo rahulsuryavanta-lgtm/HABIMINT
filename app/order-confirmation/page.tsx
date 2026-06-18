@@ -25,6 +25,7 @@ function OrderConfirmationContent() {
       </head>
 
       <main className="min-h-screen bg-habimint-bg pt-24 pb-20">
+
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             {/* Success Animation */}
@@ -77,7 +78,7 @@ function OrderConfirmationContent() {
                   <div>
                     <h3 className="font-semibold text-habimint-text mb-1">Estimated Delivery</h3>
                     <p className="text-sm text-habimint-text-light">
-                      Your order will arrive in 3-5 business days
+                      Your order will arrive in 8-10 business days
                     </p>
                   </div>
                 </div>
@@ -113,12 +114,12 @@ function OrderConfirmationContent() {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Link href="/account">
+              {/* <Link href="/account">
                 <button className="w-full sm:w-auto px-8 py-3 bg-habimint-primary text-white rounded-full font-semibold hover:bg-opacity-90 transition flex items-center justify-center gap-2">
                   <Package className="w-5 h-5" />
                   Track Order
                 </button>
-              </Link>
+              </Link> */}
               <Link href="/shop">
                 <button className="w-full sm:w-auto px-8 py-3 border-2 border-habimint-primary text-habimint-primary rounded-full font-semibold hover:bg-habimint-primary hover:text-white transition flex items-center justify-center gap-2">
                   <Home className="w-5 h-5" />

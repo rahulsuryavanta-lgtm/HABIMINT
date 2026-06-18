@@ -3,6 +3,7 @@
 import { useSelector } from "react-redux";
 import BouncingPencilLoader from "./BouncingPencilLoader";
 import { RootState } from "@/stores";
+import CircleLoader from "./CircleLoader";
 
 const GlobalLoader = () => {
     const { homePageLoading } = useSelector(
@@ -11,7 +12,7 @@ const GlobalLoader = () => {
 
     if (!homePageLoading) return null;
 
-    return <BouncingPencilLoader />;
+    return <CircleLoader showRandomTxt />;
 };
 
 export default GlobalLoader;

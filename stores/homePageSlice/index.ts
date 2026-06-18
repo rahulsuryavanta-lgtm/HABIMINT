@@ -29,7 +29,7 @@ interface HomePageState {
 const initialState: HomePageState = {
   homePageData: {} as any,
   total_records: 0,
-  homePageLoading: true,
+  homePageLoading: false,
 };
 
 export const homePageSlice = createSlice({
@@ -43,7 +43,6 @@ export const homePageSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchHomePageApi.fulfilled, (state, action) => {
       if (action.payload?.response?.status_code === 200) {
-        console.log('action.payload?.response: ', action.payload?.response?.data);
         state.homePageData = action.payload?.response?.data || [];
         state.total_records = action.payload?.response?.data?.length || 0;
       }

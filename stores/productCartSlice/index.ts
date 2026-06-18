@@ -14,6 +14,7 @@ import {
   URLPOSTMETHOD,
   URLPUTMETHOD,
 } from "@/lib/constants/ApiConstants";
+import { JournalsSectionProducts, JournalsSectionProducts_Int } from "@/public/data/product_store";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchProductDetail: any = createAsyncThunk<any, any>(
@@ -55,7 +56,6 @@ export const fetchCartData: any = createAsyncThunk<any, any>(
 export const fetchAddToCart: any = createAsyncThunk<any, any>(
   "productCartStore/fetchAddToCart",
   async ({ params }, { getState, dispatch }) => {
-    console.log('params: ', params);
     dispatch(handleCartLoader(true));
     try {
       const response = await callApi<any>({
@@ -152,7 +152,6 @@ export const fetchGetCouponOffer: any = createAsyncThunk<any, any>(
         body: params,
       });
 
-      // console.log("response:sss ", response);
       return { response };
     } catch (error) {
       console.warn("error: ", error);
@@ -197,7 +196,7 @@ export const fetchOrderHistory: any = createAsyncThunk<any, any>(
 interface ProductCartState {
   productDetail: Product_Int;
   productDetailLoading: boolean;
-  cart_products: CartProduct_Int[];
+  cart_products: JournalsSectionProducts_Int[];
   cart_total: CartTotal_Int;
   total_records: number;
   cartLoading: boolean;
@@ -233,7 +232,7 @@ export const productCartSlice = createSlice({
       state.cartLoading = action.payload;
     },
     handleCartDrawer: (state, action) => {
-      state.cartDrawerOpen = action.payload;
+      // state.cartDrawerOpen = action.payload;
       state.cartLoading = action.payload;
     },
     handleOrderHistoryLoader: (state, action) => {
@@ -253,50 +252,117 @@ export const productCartSlice = createSlice({
 
     builder.addCase(fetchCartData.fulfilled, (state, action) => {
       if (action.payload?.response?.status_code === 200) {
-        state.cart_products =
-          action.payload?.response?.data?.cart_products || [];
+
+        const cartProducts =
+          action.payload?.response?.data?.cart_products ?? [];
+
+        state.cart_products = cartProducts.reduce((acc: any[], cartItem: any) => {
+          const product = JournalsSectionProducts.find(
+            item => item.product_id === cartItem.id
+          );
+
+          if (product) {
+            acc.push({
+              ...product,
+              cart_id: cartItem.cart_id,
+              cart_qty: cartItem.cart_qty,
+            });
+          }
+
+          return acc;
+        }, []);
+
         state.cart_total =
           action.payload?.response?.data?.cart_total || ({} as any);
+        // state.cartDrawerOpen = true;
       }
       state.cartLoading = false;
     });
 
     builder.addCase(fetchAddToCart.fulfilled, (state, action) => {
       if (action.payload?.response?.status_code === 200) {
-        state.cart_products =
-          action.payload?.response?.data?.cart_products || [];
+
+        const cartProducts =
+          action.payload?.response?.data?.cart_products ?? [];
+
+        state.cart_products = cartProducts.reduce((acc: any[], cartItem: any) => {
+          const product = JournalsSectionProducts.find(
+            item => item.product_id === cartItem.id
+          );
+
+          if (product) {
+            acc.push({
+              ...product,
+              cart_id: cartItem.cart_id,
+              cart_qty: cartItem.cart_qty,
+            });
+          }
+
+          return acc;
+        }, []);
+
         state.cart_total =
           action.payload?.response?.data?.cart_total || ({} as any);
-        state.cartDrawerOpen = true;
+        // state.cartDrawerOpen = true;
       }
       state.cartLoading = false;
     });
+
 
     builder.addCase(fetchUpdateCart.fulfilled, (state, action) => {
       if (action.payload?.response?.status_code === 200) {
-        state.cart_products =
-          action.payload?.response?.data?.cart_products || [];
+        const cartProducts =
+          action.payload?.response?.data?.cart_products ?? [];
+
+        state.cart_products = cartProducts.reduce((acc: any[], cartItem: any) => {
+          const product = JournalsSectionProducts.find(
+            item => item.product_id === cartItem.id
+          );
+
+          if (product) {
+            acc.push({
+              ...product,
+              cart_id: cartItem.cart_id,
+              cart_qty: cartItem.cart_qty,
+            });
+          }
+
+          return acc;
+        }, []);
         state.cart_total =
           action.payload?.response?.data?.cart_total || ({} as any);
-
-        if (
-          action.payload?.response?.data?.cart_products?.length > 0 &&
-          !state.cartDrawerOpen
-        ) {
-          state.cartDrawerOpen = true;
-        }
       }
       state.cartLoading = false;
     });
 
-    // builder.addCase(fetchDeleteCartItem.fulfilled, (state, action) => {
-    //     if (action.payload?.response?.status_code === 200) {
-    //         state.cart_products = action.payload?.response?.data?.cart_products || [];
-    //         state.cart_total = action.payload?.response?.data?.cart_total || {} as any
-    //         state.cartDrawerOpen = true
-    //     }
-    //     state.cartLoading = false;
-    // });
+    builder.addCase(fetchDeleteCartItem.fulfilled, (state, action) => {
+      if (action.payload?.response?.status_code === 200) {
+
+        const cartProducts =
+          action.payload?.response?.data?.cart_products ?? [];
+
+        state.cart_products = cartProducts.reduce((acc: any[], cartItem: any) => {
+          const product = JournalsSectionProducts.find(
+            item => item.product_id === cartItem.id
+          );
+
+          if (product) {
+            acc.push({
+              ...product,
+              cart_id: cartItem.cart_id,
+              cart_qty: cartItem.cart_qty,
+            });
+          }
+
+          return acc;
+        }, []);
+
+        state.cart_total =
+          action.payload?.response?.data?.cart_total || ({} as any);
+        // state.cartDrawerOpen = true;
+      }
+      state.cartLoading = false;
+    });
 
     builder.addCase(fetchTotalCartQty.fulfilled, (state, action) => {
       if (action.payload?.response?.status_code === 200) {

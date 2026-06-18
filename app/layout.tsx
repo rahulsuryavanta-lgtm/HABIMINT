@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import { Suspense } from 'react'
 import BouncingPencilLoader from '@/components/loaders/BouncingPencilLoader'
 import GlobalLoader from '@/components/loaders/GlobalLoader'
+import CircleLoader from '@/components/loaders/CircleLoader'
 
 
 
@@ -30,7 +31,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <Provider store={AppStore}>
-          <Suspense fallback={<BouncingPencilLoader />}>
+          <Suspense fallback={<CircleLoader />}>
             <Navbar />
             <GlobalLoader />
             <main className="min-h-screen overflow-x-hidden w-full">

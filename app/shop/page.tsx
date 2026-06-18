@@ -106,9 +106,9 @@ export default function ShopPage() {
         };
       })
     );
-
   }
 
+  
   return (
     <>
       {/* SEO Meta Tags */}

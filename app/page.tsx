@@ -772,7 +772,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════ */}
       {/* SECTION 10 — NEWSLETTER */}
       {/* ═══════════════════════════════════════════════════════════ */}
-      <section className="bg-habimint-dark py-20 text-center">
+      {/* <section className="bg-habimint-dark py-20 text-center">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -816,7 +816,7 @@ export default function HomePage() {
             </p>
           </motion.div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

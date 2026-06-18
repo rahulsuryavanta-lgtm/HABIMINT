@@ -76,7 +76,6 @@ const CreateAccount: React.FC<{ setStep: React.Dispatch<React.SetStateAction<Sig
         onSubmit: (value: InitialValues_Int) => callLoginApi(value)
     });
 
-    console.log('errors: ===', errors);
 
 
     const callLoginApi = async (value: any) => {

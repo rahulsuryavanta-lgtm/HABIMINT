@@ -18,7 +18,7 @@ import { RootState } from '@/stores';
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { cart_total, cartDrawerOpen } = useSelector(
+  const { cart_total } = useSelector(
     (state: RootState) => state.productCartSlice
   );
 
