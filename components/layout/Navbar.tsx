@@ -9,11 +9,12 @@ import { Search, ShoppingCart, User, Menu, X, LogIn } from 'lucide-react';
 import { useCart } from '@/store/cartStore';
 import { NAVIGATION_LINKS } from '@/lib/constants/constants';
 import { UserCookieData_Int } from '@/interface/ProfileInt';
-import { getUserInfo } from '@/utils/getToken';
+import { getUserInfo, setLoginInfo } from '@/utils/getToken';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTotalCartQty } from '@/stores/productCartSlice';
 import { RootState } from '@/stores';
+import { fetchUserProfile } from '@/stores/profileSlice';
 
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -74,6 +75,23 @@ export const Navbar: React.FC = () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, []);
+
+
+  const fetchData = async (token: string) => {
+    let data = await fetchUserProfile(token);
+    if (data?.status_code === 200 && data?.data?.login_token) {
+      setLoginInfo(data?.data);
+      setUserData(data?.data);
+      router.push("/");
+    }
+  };
+
+  useEffect(() => {
+    if (pathname === "/" && token) {
+      fetchData(token);
+    }
+  }, [token]);
+
 
   return (
     <>
